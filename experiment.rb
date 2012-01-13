@@ -39,7 +39,9 @@ class Window
     }
     @display = lambda {
       puts "Display"
+      glClear(GL_COLOR_BUFFER_BIT)
       @objects.each { |name, obj| obj.draw }
+      glutSwapBuffers
     }
     @timer = Proc.new {
       puts "Timer: #{@active_handler.inspect}"
@@ -101,6 +103,34 @@ class Window
 
 end
 
+class Background
+  def draw
+    ground
+    air
+  end
+
+  def air
+    glColor(0.10,0.10,1.00)
+    glBegin(GL_POLYGON)
+    glVertex(-1.0,-0.8)
+    glVertex(-1.0, 1.0)
+    glVertex( 1.0, 1.0)
+    glVertex( 1.0,-0.8)
+    glEnd
+  end
+
+  def ground
+    glColor(0.33,0.41,0.18)
+    glBegin(GL_POLYGON)
+    glVertex(-1.0,-0.8)
+    glVertex(-1.0,-1.0)
+    glVertex( 1.0,-1.0)
+    glVertex( 1.0,-0.8)
+    glEnd
+  end
+
+end
+
 class Player
 
   def initialize
@@ -113,8 +143,7 @@ class Player
   def draw
     next_jump_move
     puts "DRAW"
-    glClear(GL_COLOR_BUFFER_BIT)
-    glColor(0.5, 0.5, 0.5)
+    glColor(1.0, 0.0, 0.0)
     glBegin(GL_POLYGON)
 
     glVertex(@x, @y)
@@ -123,7 +152,6 @@ class Player
     glVertex(@x + @w, @y)
 
     glEnd
-    glutSwapBuffers
   end
 
   INCREMENT = 0.05
@@ -168,12 +196,13 @@ Window.draw do
 
   title "Iain"
 
-  width 800
+  width 600
   height 600
 
   left 10
   top 10
 
+  add :background, Background.new
   add :player, Player.new
 
   on "a" do
