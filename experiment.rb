@@ -134,7 +134,7 @@ end
 class Player
 
   def initialize
-    @w = 0.25
+    @w = 0.10
     @h = 0.25
     @y = -1.0
     @x = 0.0 - @h/2.0
@@ -154,7 +154,7 @@ class Player
     glEnd
   end
 
-  INCREMENT = 0.05
+  INCREMENT = 0.010
 
   def move_left
     @x -= INCREMENT if @x > -1.0
@@ -176,8 +176,8 @@ class Player
     @moving_up = true
     @start_y = @y
     @time = 0
-    @initial_speed = 0.25
-    @acceleration = 0.025
+    @initial_speed = 0.050
+    @acceleration = 0.00145
   end
 
   def next_jump_move
