@@ -104,10 +104,10 @@ end
 class Player
 
   def initialize
-    @x = 0.25
-    @y = -0.9
     @w = 0.25
     @h = 0.25
+    @y = -1.0
+    @x = 0.0 - @h/2.0
   end
 
   def draw
@@ -129,11 +129,11 @@ class Player
   INCREMENT = 0.05
 
   def move_left
-    @x -= INCREMENT
+    @x -= INCREMENT if @x > -1.0
   end
 
   def move_right
-    @x += INCREMENT
+    @x += INCREMENT if @x < 1.0 - @w
   end
 
   def jump
