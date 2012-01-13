@@ -7,7 +7,7 @@ require 'yaml'
 # exit
 
 def puts(*args)
-  STDOUT.puts(*args) if false
+  STDOUT.puts(*args) if true
 end
 
 Point = Struct.new(:x, :y)
@@ -138,6 +138,7 @@ class Player
     @h = 0.25
     @y = -1.0
     @x = 0.0 - @h/2.0
+    @bullets_left = 20
   end
 
   def draw
@@ -165,8 +166,7 @@ class Player
   end
 
   def jump
-    if @during_jump
-    else
+    unless @during_jump
       start_jump
     end
   end
@@ -190,6 +190,39 @@ class Player
     @time += 1
   end
 
+  def shoot world
+    if @bullets_left > 0
+      world.add("bullet_#{@bullets_left}".to_sym, Bullet.new(@x + @w,@y + @h*0.8))
+      @bullets_left -= 1
+    end
+  end
+end
+
+class Bullet
+  def initialize x, y
+    @x = x
+    @y = y
+    @w = 0.10
+    @h = 0.01
+    @bullet_speed = 0.05
+  end
+
+  def draw
+    puts "bullet has been shot @ #{@x}:#{@y}"
+    move_bullet
+
+    glColor(0.0,0.0,0.0)
+    glBegin(GL_POLYGON)
+    glVertex(@x,@y)
+    glVertex(@x + @w, @y)
+    glVertex(@x + @w, @y + @h)
+    glVertex(@x, @y + @h)
+    glEnd
+  end
+
+  def move_bullet
+    @x += @bullet_speed if @x < 1
+  end
 end
 
 Window.draw do
@@ -215,8 +248,12 @@ Window.draw do
     get(:player).move_right
   end
 
-  on " " do
+  on "w" do
     get(:player).jump
+  end
+
+  on " " do
+    get(:player).shoot(self)
   end
 
 end
