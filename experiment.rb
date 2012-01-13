@@ -7,7 +7,7 @@ require 'yaml'
 # exit
 
 def puts(*args)
-  STDOUT.puts(*args) if true
+  STDOUT.puts(*args) if false
 end
 
 Point = Struct.new(:x, :y)
@@ -24,18 +24,18 @@ class Window
     @block = block
     @key_handlers = []
     @objects = {}
-    @active_handler = nil
+    @active_handlers = {}
     @keyboard = lambda { |key, x, y|
       puts "Pressed"
       @key_handlers.each do |handler|
         if key === handler[:key][0]
-          @active_handler = handler[:block]
+          @active_handlers[key] = handler[:block]
         end
       end
     }
     @key_up = Proc.new { |key, x, y|
       puts "Released"
-      @active_handler = nil
+      @active_handlers.delete(key)
     }
     @display = lambda {
       puts "Display"
@@ -43,7 +43,7 @@ class Window
     }
     @timer = Proc.new {
       puts "Timer: #{@active_handler.inspect}"
-      @active_handler && @active_handler.call
+      @active_handlers.each { |key, handler| handler.call }
       glutPostRedisplay
       glutTimerFunc(10, @timer, 1)
     }
@@ -114,7 +114,7 @@ class Player
     next_jump_move
     puts "DRAW"
     glClear(GL_COLOR_BUFFER_BIT)
-    glColor(1.0, 1.0, 1.0)
+    glColor(0.5, 0.5, 0.5)
     glBegin(GL_POLYGON)
 
     glVertex(@x, @y)
@@ -147,23 +147,19 @@ class Player
     @during_jump = true
     @moving_up = true
     @start_y = @y
+    @time = 0
+    @initial_speed = 0.25
+    @acceleration = 0.025
   end
 
   def next_jump_move
     return unless @during_jump
-    if @moving_up
-      if @y < (@start_y + 1.0)
-        @y += INCREMENT
-      else
-        @moving_up = false
-      end
-    else # moving_down
-      if @y > @start_y
-        @y -= INCREMENT
-      else
-        @during_jump = false
-      end
+    @y = @start_y + (@initial_speed * @time) - ((0.5)*@acceleration*(@time**2))
+    if @y < @start_y
+      @y = @start_y
+      @during_jump = false
     end
+    @time += 1
   end
 
 end
