@@ -6,9 +6,11 @@ GEM
     ruby-opengl (0.60.1)
       mkrf (>= 0.2.0)
       rake
+    rubysdl (2.1.1)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   ruby-opengl
+  rubysdl
