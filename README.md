@@ -11,5 +11,10 @@ cd SDL-1.2.14
 make
 make install
 cd ..
-ruby plane.rb
+```
+
+To run:
+
+```
+ruby experiment.rb
 ```
