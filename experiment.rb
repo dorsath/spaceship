@@ -168,7 +168,7 @@ Window.draw do
 
   title "Iain"
 
-  width 600
+  width 800
   height 600
 
   left 10
