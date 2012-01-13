@@ -7,7 +7,7 @@ require 'yaml'
 # exit
 
 def puts(*args)
-  STDOUT.puts(*args) if false
+  STDOUT.puts(*args) if true
 end
 
 Point = Struct.new(:x, :y)
@@ -28,7 +28,7 @@ class Window
     @keyboard = lambda { |key, x, y|
       puts "Pressed"
       @key_handlers.each do |handler|
-        if key === handler[:key]
+        if key === handler[:key][0]
           @active_handler = handler[:block]
         end
       end
@@ -105,12 +105,13 @@ class Player
 
   def initialize
     @x = 0.25
-    @y = 0.25
-    @w = 0.5
-    @h = 0.5
+    @y = -0.9
+    @w = 0.25
+    @h = 0.25
   end
 
   def draw
+    next_jump_move
     puts "DRAW"
     glClear(GL_COLOR_BUFFER_BIT)
     glColor(1.0, 1.0, 1.0)
@@ -135,28 +136,62 @@ class Player
     @x += INCREMENT
   end
 
+  def jump
+    if @during_jump
+    else
+      start_jump
+    end
+  end
+
+  def start_jump
+    @during_jump = true
+    @moving_up = true
+    @start_y = @y
+  end
+
+  def next_jump_move
+    return unless @during_jump
+    if @moving_up
+      if @y < (@start_y + 1.0)
+        @y += INCREMENT
+      else
+        @moving_up = false
+      end
+    else # moving_down
+      if @y > @start_y
+        @y -= INCREMENT
+      else
+        @during_jump = false
+      end
+    end
+  end
+
 end
 
 Window.draw do
 
   title "Iain"
 
-  width 200
-  height 200
+  width 600
+  height 600
 
   left 10
   top 10
 
   add :player, Player.new
 
-  on ?a do
+  on "a" do
     puts "A"
     get(:player).move_left
   end
 
-  on ?d do
+  on "d" do
     puts "D"
     get(:player).move_right
+  end
+
+  on " " do
+    get(:player).jump
   end
 
 end
