@@ -190,6 +190,10 @@ class Player
     @time += 1
   end
 
+  def reload
+    @bullets_left = 20
+  end
+
   def shoot world
     if @bullets_left > 0
       world.add("bullet_#{@bullets_left}".to_sym, Bullet.new(@x + @w,@y + @h*0.8))
@@ -254,6 +258,10 @@ Window.draw do
 
   on " " do
     get(:player).shoot(self)
+  end
+
+  on "r" do
+    get(:player).reload
   end
 
 end
