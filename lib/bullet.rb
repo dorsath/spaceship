@@ -25,7 +25,7 @@ class Bullet
 
     glColor(0.0, 0.0, 0.0)
     glTranslate(@x, @y, 0)
-    glRotate(@current_angle * 2 * Math::PI, 0, 0, 1)
+    glRotate(current_angle, 0, 0, 1)
     glBegin(GL_POLYGON)
     glVertex(WIDTH *  0.5, HEIGHT *  0.5)
     glVertex(WIDTH *  0.5, HEIGHT * -0.5)
@@ -41,12 +41,10 @@ class Bullet
   def move_bullet
     @x += delta_x
     @y += delta_y
-    @current_angle = current_angle
-    puts "current angle #{@current_angle}"
   end
 
   def current_angle
-    Math.atan(delta_y / delta_x) * 10
+    Math.atan(delta_y / delta_x) * 20 * Math::PI
   end
 
   def delta_y
@@ -54,7 +52,7 @@ class Bullet
   end
 
   def delta_x
-    Math.cos(@initial_angle) * SPEED
+    Math.cos(@initial_angle) * SPEED * -@direction
   end
 
   def time
