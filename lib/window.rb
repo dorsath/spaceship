@@ -45,6 +45,7 @@ class Window
     @display ||= Proc.new do
       glClear(GL_COLOR_BUFFER_BIT)
       objects.each do |object|
+        glLoadIdentity
         object[:object].draw
       end
       glutSwapBuffers

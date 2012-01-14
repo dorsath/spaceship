@@ -16,7 +16,7 @@ class Player
     @w = 0.10
     @h = 0.25
     @y = -1.0
-    @x = 0.0 - @h / 2.0
+    @x = -1.0
     @direction = LEFT
     @instructions = Set.new
     @abilities = ABILITIES.map { |ab| ab.new(self) }
