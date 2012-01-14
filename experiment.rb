@@ -139,6 +139,7 @@ class Player
     @y = -1.0
     @x = 0.0 - @h/2.0
     @bullets_left = 20
+    @last_direction = 1.0 #multiplier for bullet speed
   end
 
   def draw
@@ -159,10 +160,12 @@ class Player
 
   def move_left
     @x -= INCREMENT if @x > -1.0
+    @last_direction = -1.0
   end
 
   def move_right
     @x += INCREMENT if @x < 1.0 - @w
+    @last_direction = 1.0
   end
 
   def jump
@@ -196,19 +199,20 @@ class Player
 
   def shoot world
     if @bullets_left > 0
-      world.add("bullet_#{@bullets_left}".to_sym, Bullet.new(@x + @w,@y + @h*0.8))
+      world.add("bullet_#{@bullets_left}".to_sym, Bullet.new(@x + @w,@y + @h*0.8, @last_direction))
       @bullets_left -= 1
     end
   end
 end
 
 class Bullet
-  def initialize x, y
+  def initialize x, y, last_direction
     @x = x
     @y = y
     @w = 0.10
     @h = 0.01
     @bullet_speed = 0.05
+    @last_direction = last_direction
   end
 
   def draw
@@ -225,7 +229,7 @@ class Bullet
   end
 
   def move_bullet
-    @x += @bullet_speed if @x < 1
+    @x += @bullet_speed * @last_direction if @x < 1
   end
 end
 
