@@ -138,12 +138,18 @@ class Player
     @h = 0.25
     @y = -1.0
     @x = 0.0 - @h/2.0
-    @bullets_left = 20
     @last_direction = 1.0 #multiplier for bullet speed
+
+    @bullets_left = 20
+    @rate_of_fire = 20 #per refreshrate
+    @last_shot = 0
+    @able_to_shoot = true
   end
 
   def draw
     next_jump_move
+    able_to_shoot_again
+
     puts "DRAW"
     glColor(1.0, 0.0, 0.0)
     glBegin(GL_POLYGON)
@@ -193,14 +199,29 @@ class Player
     @time += 1
   end
 
+  def able_to_shoot_again
+    if @last_shot > @rate_of_fire or @last_shot == 0
+      @last_shot = 0
+      @able_to_shoot = true
+    elsif @last_shot > 0
+      puts "upping the last shot to #{@last_shot}"
+      @able_to_shoot = false
+      @last_shot += 1
+    end
+  end
+
   def reload
     @bullets_left = 20
   end
 
   def shoot world
-    if @bullets_left > 0
+    if @bullets_left > 0 and @able_to_shoot
+      puts "bullet has been shot @ #{@x}:#{@y}"
+
       world.add("bullet_#{@bullets_left}".to_sym, Bullet.new(@x + @w,@y + @h*0.8, @last_direction))
+
       @bullets_left -= 1
+      @last_shot += 1
     end
   end
 end
@@ -216,7 +237,6 @@ class Bullet
   end
 
   def draw
-    puts "bullet has been shot @ #{@x}:#{@y}"
     move_bullet
 
     glColor(0.0,0.0,0.0)
@@ -229,7 +249,7 @@ class Bullet
   end
 
   def move_bullet
-    @x += @bullet_speed * @last_direction if @x < 1
+    @x += @bullet_speed * @last_direction if @x + @w > -0.9 and @x < 0.9
   end
 end
 
