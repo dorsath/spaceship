@@ -25,7 +25,7 @@ class Window
 
   def key_press
     @key_press ||= Proc.new do |key, x, y|
-      puts "Pressed #{key.chr.inspect}"
+      #puts "Pressed #{key.chr.inspect}"
       key_handlers.each do |handler|
         if key.chr === handler[:key]
           active_handlers[key] = handler[:block]
@@ -36,7 +36,7 @@ class Window
 
   def key_up
     @key_up ||= Proc.new do |key, x, y|
-      puts "Released #{key.chr.inspect}"
+      #puts "Released #{key.chr.inspect}"
       active_handlers.delete(key)
     end
   end
@@ -44,7 +44,9 @@ class Window
   def display
     @display ||= Proc.new do
       glClear(GL_COLOR_BUFFER_BIT)
-      objects.each { |name, obj| obj.draw }
+      objects.each do |name, object|
+        object.draw
+      end
       glutSwapBuffers
     end
   end
@@ -75,8 +77,10 @@ class Window
   end
 
   def add(name, object)
-    @objects[name] = object
+    puts "Adding #{name.inspect}, which is a #{object.class.to_s.downcase}"
+    objects[name] = object
     object.world = self
+    puts "Known objects: #{objects.keys.inspect}"
   end
 
   def width(width)

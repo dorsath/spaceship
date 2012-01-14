@@ -34,7 +34,7 @@ class Jumping < Behavior
   end
 
   def land
-    @y = @start_y
+    subject.y = @start_y
     @jumping = false
     @jump_cooldown = true
     @jump_cooldown_start = current_time

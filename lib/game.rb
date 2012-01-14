@@ -57,8 +57,4 @@ Window.draw do
     exit
   end
 
-  on_start do
-    enter_fullscreen
-  end
-
 end
