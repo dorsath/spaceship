@@ -17,7 +17,6 @@ class Player
     next_jump_move
     able_to_shoot_again
 
-    puts "DRAW"
     glColor(1.0, 0.0, 0.0)
     glBegin(GL_POLYGON)
 

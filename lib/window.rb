@@ -1,38 +1,59 @@
 class Window
 
-  def self.draw(&block)
-    new(block).call
+  def self.draw(&config)
+    instance.configure(&config)
+    instance.draw
   end
 
-  def initialize(block)
-    @block = block
+  def self.instance
+    @instance ||= new
+  end
+
+  attr_reader :config, :key_handlers, :objects, :active_handlers
+
+  def initialize
+    @config = lambda {}
     @key_handlers = []
     @objects = {}
     @active_handlers = {}
-    @keyboard = lambda { |key, x, y|
-      puts "Pressed"
-      @key_handlers.each do |handler|
+  end
+
+  def configure(&config)
+    @config = config
+  end
+
+  def key_press
+    @key_press ||= Proc.new do |key, x, y|
+      puts "Pressed: #{key.inspect}"
+      key_handlers.each do |handler|
         if key === handler[:key][0]
-          @active_handlers[key] = handler[:block]
+          active_handlers[key] = handler[:block]
         end
       end
-    }
-    @key_up = Proc.new { |key, x, y|
-      puts "Released"
-      @active_handlers.delete(key)
-    }
-    @display = lambda {
-      puts "Display"
+    end
+  end
+
+  def key_up
+    @key_up ||= Proc.new do |key, x, y|
+      puts "Released #{key}"
+      active_handlers.delete(key)
+    end
+  end
+
+  def display
+    @display ||= Proc.new do
       glClear(GL_COLOR_BUFFER_BIT)
-      @objects.each { |name, obj| obj.draw }
+      objects.each { |name, obj| obj.draw }
       glutSwapBuffers
-    }
-    @timer = Proc.new {
-      puts "Timer: #{@active_handler.inspect}"
-      @active_handlers.each { |key, handler| handler.call }
+    end
+  end
+
+  def timer
+    @timer ||= Proc.new do
+      active_handlers.each { |key, handler| handler.call }
       glutPostRedisplay
-      glutTimerFunc(10, @timer, 1)
-    }
+      glutTimerFunc(10, timer, 1)
+    end
   end
 
   def title(title)
@@ -71,17 +92,17 @@ class Window
     @top = top
   end
 
-  def call
-    instance_eval &@block
+  def draw
+    instance_eval &config
     glutInit
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB)
     glutInitWindowSize(@width, @height)
     glutInitWindowPosition(@left, @top)
     glutCreateWindow(@title)
-    glutKeyboardFunc(@keyboard)
-    glutKeyboardUpFunc(@key_up)
-    glutDisplayFunc(@display)
-    glutTimerFunc(10, @timer, 1)
+    glutKeyboardFunc(key_press)
+    glutKeyboardUpFunc(key_up)
+    glutDisplayFunc(display)
+    glutTimerFunc(10, timer, 1)
     glutMainLoop
   end
 

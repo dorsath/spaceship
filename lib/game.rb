@@ -17,12 +17,10 @@ Window.draw do
   add :player, Player.new
 
   on "a" do
-    puts "A"
     get(:player).move_left
   end
 
   on "d" do
-    puts "D"
     get(:player).move_right
   end
 
