@@ -32,16 +32,16 @@ Window.draw do
     get(:player).shoot(self)
   end
 
-  on "j" do
+  on "r" do
+    get(:player).reload
+  end
+
+  on "h" do
     move_viewport_left
   end
 
   on "l" do
     move_viewport_right
-  end
-
-  on "r" do
-    get(:player).reload
   end
 
   on "f" do
@@ -50,6 +50,10 @@ Window.draw do
 
   on "F" do
     exit_fullscreen
+  end
+
+  on_start do
+    enter_fullscreen
   end
 
 end

@@ -9,9 +9,10 @@ class Window
     @instance ||= new
   end
 
-  attr_reader :config, :key_handlers, :objects, :active_handlers
+  attr_reader :config, :key_handlers, :objects, :active_handlers, :start
 
   def initialize
+    @start = lambda {}
     @config = lambda {}
     @key_handlers = []
     @objects = {}
@@ -100,12 +101,16 @@ class Window
     glutReshapeWindow(@width, @height);
   end
 
+  def on_start(&start)
+    @start = start
+  end
+
   def move_viewport_left
-    glTranslatef(0.01, 0.0, 0.0)
+    glTranslatef(0.02, 0.0, 0.0)
   end
 
   def move_viewport_right
-    glTranslatef(-0.01, 0.0, 0.0)
+    glTranslatef(-0.02, 0.0, 0.0)
   end
 
   def draw
@@ -119,6 +124,7 @@ class Window
     glutKeyboardUpFunc(key_up)
     glutDisplayFunc(display)
     glutTimerFunc(10, timer, 1)
+    instance_eval &start
     glutMainLoop
   end
 
