@@ -1,0 +1,11 @@
+#!/bin/bash
+set -e
+
+gem install bundler
+bundle install
+
+tar -xf SDL-1.2.14.tar.gz
+cd SDL-1.2.14
+./configure --disable-assembly
+make
+make install

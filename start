@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+
+require 'opengl'
+require 'mathn'
+include Gl, Glu, Glut
+
+$:.unshift(File.expand_path("../lib", __FILE__))
+
+# require 'yaml'
+# y (Glut.methods - Object.methods).sort
+# exit
+
+def puts(*args)
+  STDOUT.puts(*args) if ARGV[-1] == '--debug'
+end
+
+require 'game'

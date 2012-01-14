@@ -1,3 +1,8 @@
+require 'window'
+require 'background'
+require 'player'
+require 'bullet'
+
 Window.draw do
 
   title "Iain"

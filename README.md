@@ -1,20 +1,18 @@
-# OpenGL tests
+# OpenGL in Ruby
 
-To install:
+Just some things we made on an evening of happy hacking.
 
-```
-gem install bundler
-bundle install
-tar -xf SDL-1.2.14.tar.gz
-cd SDL-1.2.14
-./configure
-make
-make install
-cd ..
-```
 
-To run:
+## Installation
 
 ```
-ruby experiment.rb
+./install
 ```
+
+## Usage
+
+```
+./start
+```
+
+Controls: `W`, `A`, `S`, `D` and `space`
