@@ -19,8 +19,11 @@ Just some things we made on an evening of happy hacking.
 * `W`: jump
 * `A`: move left
 * `D`: move right
-* `space`: shoot 
+* `space`: shoot
 * `R`: reload
+* `f`: fullscreen
+* `F`: exit fullscreen
+
 
 ## More
 

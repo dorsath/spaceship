@@ -4,8 +4,9 @@ set -e
 gem install bundler
 bundle install
 
-tar -xf SDL-1.2.14.tar.gz
-cd SDL-1.2.14
-./configure --disable-assembly
-make
-make install
+#sdl not required since we're using glut
+#tar -xf SDL-1.2.14.tar.gz
+#cd SDL-1.2.14
+#./configure --disable-assembly
+#make
+#make install
