@@ -49,11 +49,12 @@ class Window
     end
   end
 
-  def timer
-    @timer ||= Proc.new do
-      active_handlers.each { |key, handler| handler.call }
+  def idle
+    @idle ||= Proc.new do
+      active_handlers.each do |key, handler|
+        handler.call
+      end
       glutPostRedisplay
-      glutTimerFunc(10, timer, 1)
     end
   end
 
@@ -61,12 +62,12 @@ class Window
     @title = title
   end
 
-  def get(name)
-    @objects[name]
+  def tell(name)
+    objects[name]
   end
 
   def on(key, &block)
-    @key_handlers << { :key => key, :block => block }
+    key_handlers << { :key => key, :block => block }
   end
 
   def on_key(&block)
@@ -75,6 +76,7 @@ class Window
 
   def add(name, object)
     @objects[name] = object
+    object.world = self
   end
 
   def width(width)
@@ -106,15 +108,17 @@ class Window
   end
 
   def move_viewport_left
-    glTranslatef(0.02, 0.0, 0.0)
+    glTranslatef(0.002, 0.0, 0.0)
   end
 
   def move_viewport_right
-    glTranslatef(-0.02, 0.0, 0.0)
+    glTranslatef(-0.002, 0.0, 0.0)
   end
 
   def draw
+    puts "Initializing configuration options"
     instance_eval &config
+    puts "Creating window"
     glutInit
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB)
     glutInitWindowSize(@width, @height)
@@ -123,8 +127,10 @@ class Window
     glutKeyboardFunc(key_press)
     glutKeyboardUpFunc(key_up)
     glutDisplayFunc(display)
-    glutTimerFunc(10, timer, 1)
+    glutIdleFunc(idle)
+    puts "Performing starting options"
     instance_eval &start
+    puts "Entering main loop"
     glutMainLoop
   end
 

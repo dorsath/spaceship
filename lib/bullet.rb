@@ -1,4 +1,7 @@
 class Bullet
+
+  attr_accessor :world
+
   def initialize x, y, last_direction
     @x = x
     @y = y

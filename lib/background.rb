@@ -1,5 +1,7 @@
 class Background
 
+  attr_accessor :world
+
   def initialize width_multiplier
     @w = width_multiplier
   end

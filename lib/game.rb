@@ -1,3 +1,4 @@
+require 'set'
 require 'window'
 require 'background'
 require 'player'
@@ -17,23 +18,23 @@ Window.draw do
   add :player, Player.new
 
   on "a" do
-    get(:player).move_left
+    tell(:player).to(:turn_left).and(:walk)
   end
 
   on "d" do
-    get(:player).move_right
+    tell(:player).to(:turn_right).and(:walk)
   end
 
   on "w" do
-    get(:player).jump
+    tell(:player).to(:jump)
   end
 
   on " " do
-    get(:player).shoot(self)
+    tell(:player).to(:shoot)
   end
 
   on "r" do
-    get(:player).reload
+    tell(:player).to(:reload)
   end
 
   on "h" do
@@ -50,6 +51,10 @@ Window.draw do
 
   on "F" do
     exit_fullscreen
+  end
+
+  on "q" do
+    exit
   end
 
   on_start do
