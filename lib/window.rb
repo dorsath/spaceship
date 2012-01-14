@@ -100,6 +100,13 @@ class Window
     glutReshapeWindow(@width, @height);
   end
 
+  def move_viewport_left
+    glTranslatef(0.01, 0.0, 0.0)
+  end
+
+  def move_viewport_right
+    glTranslatef(-0.01, 0.0, 0.0)
+  end
 
   def draw
     instance_eval &config

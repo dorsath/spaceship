@@ -11,6 +11,9 @@ class Player
     @rate_of_fire = 20 #per refreshrate
     @last_shot = 0
     @able_to_shoot = true
+    @initial_speed = 0.050
+    @acceleration = 0.00145
+    @walking_speed = 0.010
   end
 
   def draw
@@ -28,24 +31,14 @@ class Player
     glEnd
   end
 
-  INCREMENT = 0.010
-
   def move_left
-    @x -= INCREMENT
+    @x -= @walking_speed
     @last_direction = -1.0
   end
 
   def move_right
-    @x += INCREMENT
+    @x += @walking_speed
     @last_direction = 1.0
-  end
-
-  def move_viewport_left
-    glTranslatef(INCREMENT,0.0,0.0)
-  end
-
-  def move_viewport_right
-    glTranslatef(-1 * INCREMENT,0.0,0.0)
   end
 
   def jump
@@ -56,11 +49,8 @@ class Player
 
   def start_jump
     @during_jump = true
-    @moving_up = true
     @start_y = @y
     @time = 0
-    @initial_speed = 0.050
-    @acceleration = 0.00145
   end
 
   def next_jump_move

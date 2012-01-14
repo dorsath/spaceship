@@ -33,11 +33,11 @@ Window.draw do
   end
 
   on "j" do
-    get(:player).move_viewport_left
+    move_viewport_left
   end
 
   on "l" do
-    get(:player).move_viewport_right
+    move_viewport_right
   end
 
   on "r" do
