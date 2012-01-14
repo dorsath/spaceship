@@ -24,9 +24,9 @@ class Window
 
   def key_press
     @key_press ||= Proc.new do |key, x, y|
-      puts "Pressed: #{key.inspect}"
+      puts "Pressed #{key.chr.inspect}"
       key_handlers.each do |handler|
-        if key === handler[:key][0]
+        if key.chr === handler[:key]
           active_handlers[key] = handler[:block]
         end
       end
@@ -35,7 +35,7 @@ class Window
 
   def key_up
     @key_up ||= Proc.new do |key, x, y|
-      puts "Released #{key}"
+      puts "Released #{key.chr.inspect}"
       active_handlers.delete(key)
     end
   end
