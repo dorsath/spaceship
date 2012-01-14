@@ -1,4 +1,4 @@
-class Bullet
+class Arrow
 
   attr_accessor :world
 
@@ -21,7 +21,7 @@ class Bullet
 
   def draw
     return if stop_drawing?
-    move_bullet
+    move_arrow
 
     glColor(0.0, 0.0, 0.0)
     glTranslate(@x, @y, 0)
@@ -38,7 +38,7 @@ class Bullet
     current_time - @start_time > 300
   end
 
-  def move_bullet
+  def move_arrow
     @x += delta_x
     @y += delta_y
   end

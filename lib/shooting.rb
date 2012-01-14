@@ -1,25 +1,25 @@
 class Shooting < Behavior
 
-  MAX_BULLETS = 100
+  MAX_ARROWS = 100
 
   def initialize(*)
     super
-    @bullets = MAX_BULLETS
+    @arrows = MAX_ARROWS
     @last_shot = current_time
     @able_to_shoot = true
-    @total_bullets_shot = 0
+    @total_arrows_shot = 0
   end
 
   def handle
     if @shooting
 
-      subject.world.add(bullet_id, new_bullet)
+      subject.world.add(arrow_id, new_arrow)
 
-      @bullets -= 1
+      @arrows -= 1
       @last_shot = current_time
-      @total_bullets_shot += 1
+      @total_arrows_shot += 1
       @shooting = false
-      puts "Bullet shot. #{@bullets} bullets left."
+      puts "Arrow shot. #{@arrows} arrows left."
     end
   end
 
@@ -28,29 +28,29 @@ class Shooting < Behavior
   end
 
   def reload
-    @bullets = MAX_BULLETS
+    @arrows = MAX_ARROWS
   end
 
   private
 
   def able_to_shoot?
-    has_enough_bullets? && after_cooldown?
+    has_enough_arrows? && after_cooldown?
   end
 
-  def has_enough_bullets?
-    @bullets > 0
+  def has_enough_arrows?
+    @arrows > 0
   end
 
   def after_cooldown?
     current_time - @last_shot > 20
   end
 
-  def new_bullet
-    Bullet.new(bullet_id, subject.x, subject.y + subject.h * 0.8, subject.direction)
+  def new_arrow
+    Arrow.new(arrow_id, subject.x, subject.y + subject.h * 0.8, subject.direction)
   end
 
-  def bullet_id
-    :"bullet_#{@total_bullets_shot}"
+  def arrow_id
+    :"arrow_#{@total_arrows_shot}"
   end
 
 end

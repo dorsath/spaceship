@@ -2,7 +2,7 @@ require 'set'
 require 'window'
 require 'background'
 require 'player'
-require 'bullet'
+require 'arrow'
 
 Window.draw do
 
