@@ -1,19 +1,29 @@
 #!/usr/bin/env ruby
 
 require 'rubygems'
-
+require 'optparse'
 require 'opengl'
-require 'mathn'
 include Gl, Glu, Glut
+
+OPTIONS = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: example.rb [options]"
+
+  opts.on("-v", "--[no-]verbose", "Run verbosely") do |v|
+    OPTIONS[:verbose] = v
+  end
+
+  opts.on_tail("-h", "--help", "Show this message") do
+    puts opts
+    exit
+  end
+
+end.parse!
 
 $:.unshift(File.expand_path("../lib", __FILE__))
 
-# require 'yaml'
-# y (Glut.methods - Object.methods).sort
-# exit
-
 def puts(*args)
-  STDOUT.puts(*args) if ARGV[-1] == '--debug'
+  STDOUT.puts(*args) if OPTIONS[:verbose]
 end
 
 require 'game'
