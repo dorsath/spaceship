@@ -2,7 +2,6 @@
 
 Just some things we made on an evening of happy hacking.
 
-
 ## Installation
 
 ```
@@ -15,4 +14,10 @@ Just some things we made on an evening of happy hacking.
 ./start
 ```
 
-Controls: `W`, `A`, `S`, `D` and `space`
+## Controls
+
+* `W`: jump
+* `A`: move left
+* `D`: move right
+* `space`: shoot 
+* `R`: reload
