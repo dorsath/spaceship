@@ -31,13 +31,21 @@ class Player
   INCREMENT = 0.010
 
   def move_left
-    @x -= INCREMENT if @x > -1.0
+    @x -= INCREMENT
     @last_direction = -1.0
   end
 
   def move_right
-    @x += INCREMENT if @x < 1.0 - @w
+    @x += INCREMENT
     @last_direction = 1.0
+  end
+
+  def move_viewport_left
+    glTranslatef(INCREMENT,0.0,0.0)
+  end
+
+  def move_viewport_right
+    glTranslatef(-1 * INCREMENT,0.0,0.0)
   end
 
   def jump

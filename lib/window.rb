@@ -92,6 +92,15 @@ class Window
     @top = top
   end
 
+  def enter_fullscreen
+    glutFullScreen
+  end
+
+  def exit_fullscreen
+    glutReshapeWindow(@width, @height);
+  end
+
+
   def draw
     instance_eval &config
     glutInit
