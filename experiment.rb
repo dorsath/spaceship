@@ -7,7 +7,7 @@ require 'yaml'
 # exit
 
 def puts(*args)
-  STDOUT.puts(*args) if true
+  STDOUT.puts(*args) if false
 end
 
 Point = Struct.new(:x, :y)
