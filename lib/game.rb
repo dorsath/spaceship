@@ -5,7 +5,7 @@ require 'bullet'
 
 Window.draw do
 
-  title "Iain"
+  title "OpenGL in Ruby"
 
   width 600
   height 600
