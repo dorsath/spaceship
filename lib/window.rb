@@ -15,7 +15,7 @@ class Window
     @start = lambda {}
     @config = lambda {}
     @key_handlers = []
-    @objects = {}
+    @objects = []
     @active_handlers = {}
   end
 
@@ -44,8 +44,8 @@ class Window
   def display
     @display ||= Proc.new do
       glClear(GL_COLOR_BUFFER_BIT)
-      objects.each do |name, object|
-        object.draw
+      objects.each do |object|
+        object[:object].draw
       end
       glutSwapBuffers
     end
@@ -65,7 +65,7 @@ class Window
   end
 
   def tell(name)
-    objects[name]
+    objects.find { |object| object[:name] == name }[:object]
   end
 
   def on(key, &block)
@@ -78,9 +78,8 @@ class Window
 
   def add(name, object)
     puts "Adding #{name.inspect}, which is a #{object.class.to_s.downcase}"
-    objects[name] = object
+    objects << { :object => object, :name => name }
     object.world = self
-    puts "Known objects: #{objects.keys.inspect}"
   end
 
   def width(width)

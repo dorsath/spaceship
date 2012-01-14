@@ -2,7 +2,7 @@ class Bullet
 
   attr_accessor :world
 
-  SPEED = 0.0001
+  SPEED = 0.001
   HEIGHT = 0.01
   WIDTH = 0.1
 

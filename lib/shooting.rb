@@ -42,11 +42,11 @@ class Shooting < Behavior
   end
 
   def after_cooldown?
-    current_time - @last_shot > 50
+    current_time - @last_shot > 20
   end
 
   def new_bullet
-    Bullet.new(bullet_id, subject.x + subject.w, subject.y + subject.h * 0.8, subject.direction)
+    Bullet.new(bullet_id, subject.x - subject.w, subject.y + subject.h * 0.8, subject.direction)
   end
 
   def bullet_id
