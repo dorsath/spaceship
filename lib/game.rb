@@ -1,5 +1,6 @@
 require 'set'
 require 'window'
+require 'camera'
 require 'background'
 require 'player'
 require 'arrow'
@@ -13,6 +14,8 @@ Window.draw do
 
   left 10
   top 10
+
+  add_camera Camera.new(25, 10, 0, 0, 0)
 
   add :background, Background.new(1.5)
   add :player, Player.new
@@ -35,14 +38,6 @@ Window.draw do
 
   on "r" do
     tell(:player).to(:reload)
-  end
-
-  on "h" do
-    move_viewport_left
-  end
-
-  on "l" do
-    move_viewport_right
   end
 
   on "f" do

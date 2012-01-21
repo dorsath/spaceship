@@ -43,10 +43,13 @@ class Window
 
   def display
     @display ||= Proc.new do
-      glClear(GL_COLOR_BUFFER_BIT)
+      glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+      glLoadIdentity
+      set_camera
       objects.each do |object|
-        glLoadIdentity
+        glPushMatrix
         object[:object].draw
+        glPopMatrix
       end
       glutSwapBuffers
     end
@@ -83,6 +86,19 @@ class Window
     object.world = self
   end
 
+  def add_camera(object)
+    @camera = object
+    @camera.world = self
+  end
+
+  def camera
+    @camera
+  end
+
+  def set_camera
+    @camera.draw if @camera
+  end
+
   def width(width)
     @width = width
   end
@@ -111,20 +127,12 @@ class Window
     @start = start
   end
 
-  def move_viewport_left
-    glTranslatef(0.002, 0.0, 0.0)
-  end
-
-  def move_viewport_right
-    glTranslatef(-0.002, 0.0, 0.0)
-  end
-
   def draw
     puts "Initializing configuration options"
     instance_eval &config
     puts "Creating window"
     glutInit
-    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB)
+    glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_ALPHA | GLUT_DEPTH)
     glutInitWindowSize(@width, @height)
     glutInitWindowPosition(@left, @top)
     glutCreateWindow(@title)
@@ -132,10 +140,36 @@ class Window
     glutKeyboardUpFunc(key_up)
     glutDisplayFunc(display)
     glutIdleFunc(idle)
+    glutReshapeFunc(reshape)
     puts "Performing starting options"
+    init_gl
     instance_eval &start
     puts "Entering main loop"
     glutMainLoop
+  end
+
+  def reshape
+    reshape = lambda {
+      glViewport(0, 0, @width, @height)
+      glMatrixMode(GL_PROJECTION)
+      glLoadIdentity
+      gluPerspective(45 * 1, @width/@height, 0.1, 100) #aspect ratio
+      glMatrixMode(GL_MODELVIEW)
+    }
+  end
+
+  def init_gl
+    glClearColor(0,0,0,0)
+    glClearDepth(1.0)
+    glDepthFunc(GL_LESS)
+    glEnable(GL_DEPTH_TEST)
+    glShadeModel(GL_SMOOTH)
+
+    glMatrixMode(GL_PROJECTION)
+    glLoadIdentity
+
+    gluPerspective(45 * 1, @width/@height, 0.1, 100) #aspect ratio
+    glMatrixMode(GL_MODELVIEW)
   end
 
 end
