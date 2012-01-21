@@ -21,6 +21,10 @@ class Camera
     glTranslate(@offset_x * -1,y,z)
   end
 
+  def center x
+    @offset_x = x
+  end
+
   def move_left
     @offset_x -= SPEED
   end

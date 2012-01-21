@@ -5,7 +5,7 @@ class Jumping < Behavior
   def initialize(*)
     super
     @jump_cooldown = false
-    @initial_speed = 5.0
+    @initial_speed = 7.0
     @acceleration = 9.8
   end
 

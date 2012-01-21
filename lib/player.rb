@@ -50,6 +50,8 @@ class Player
     glVertex(x + w, y)
 
     glEnd
+
+    center_camera
   end
 
   def to(action)
@@ -58,6 +60,9 @@ class Player
   end
   alias_method :and, :to
 
+  def center_camera
+    world.camera.center(@x)
+  end
 
   def current_time
     Time.now.to_f * 100

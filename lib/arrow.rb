@@ -1,12 +1,11 @@
-class Arrow
+class Arrow < Behavior
 
   attr_accessor :world
 
   SPEED = 0.001
 
   HEIGHT = 0.01
-  WIDTH = 0.1
-  GRAVITY = 0.0000145
+  WIDTH = 1.0
 
   def initialize(id, x, y, direction)
     @id = id
@@ -23,7 +22,7 @@ class Arrow
     return if stop_drawing?
     move_arrow
 
-    glColor(0.0, 0.0, 0.0)
+    glColor(1.0, 1.0, 1.0)
     glTranslate(@x, @y, 0)
     glRotate(current_angle, 0, 0, 1)
     glBegin(GL_POLYGON)
@@ -48,7 +47,7 @@ class Arrow
   end
 
   def delta_y
-    Math.sin(@initial_angle) * SPEED - (GRAVITY * time)
+    Math.sin(@initial_angle) * SPEED - (gravity * time)
   end
 
   def delta_x

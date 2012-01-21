@@ -1,7 +1,7 @@
 require 'set'
 require 'window'
 require 'camera'
-require 'background'
+require 'scene'
 require 'player'
 require 'arrow'
 
@@ -15,10 +15,10 @@ Window.draw do
   left 10
   top 10
 
-  add_camera Camera.new(15, 10, 0, 3, 0)
+  add_camera Camera.new(10, 10, 0, 3, 0)
 
-  #add :background, Background.new(1.5)
   add :player, Player.new
+  add :scene, Scene.new
 
   on "a" do
     tell(:player).to(:turn_left).and(:walk)

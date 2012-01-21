@@ -1,6 +1,6 @@
 class Walking < Behavior
 
-  SPEED = 0.001
+  SPEED = 0.003
 
   def handle
     if @walking

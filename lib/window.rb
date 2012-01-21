@@ -153,7 +153,7 @@ class Window
       glViewport(0, 0, @width, @height)
       glMatrixMode(GL_PROJECTION)
       glLoadIdentity
-      gluPerspective(45 * 1, @width/@height, 0.1, 100) #aspect ratio
+      gluPerspective(45, @width/@height, 0.1, 100) #aspect ratio
       glMatrixMode(GL_MODELVIEW)
     }
   end
@@ -168,7 +168,7 @@ class Window
     glMatrixMode(GL_PROJECTION)
     glLoadIdentity
 
-    gluPerspective(45 * 1, @width/@height, 0.1, 100) #aspect ratio
+    gluPerspective(45, @width/@height, 0.1, 100) #aspect ratio
     glMatrixMode(GL_MODELVIEW)
   end
 
