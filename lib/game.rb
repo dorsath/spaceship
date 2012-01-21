@@ -40,6 +40,14 @@ Window.draw do
     tell(:player).to(:reload)
   end
 
+  on "-" do
+    camera.zoom_out
+  end
+
+  on "+" do
+    camera.zoom_in
+  end
+
   on "f" do
     enter_fullscreen
   end

@@ -25,6 +25,14 @@ class Camera
     @offset_x = x
   end
 
+  def zoom_out
+    @distance += SPEED
+  end
+
+  def zoom_in
+    @distance -= SPEED
+  end
+
   def move_left
     @offset_x -= SPEED
   end
