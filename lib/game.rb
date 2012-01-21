@@ -15,9 +15,9 @@ Window.draw do
   left 10
   top 10
 
-  add_camera Camera.new(25, 10, 0, 0, 0)
+  add_camera Camera.new(15, 10, 0, 3, 0)
 
-  add :background, Background.new(1.5)
+  #add :background, Background.new(1.5)
   add :player, Player.new
 
   on "a" do

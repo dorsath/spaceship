@@ -13,10 +13,10 @@ class Player
   RIGHT = -1.0
 
   def initialize
-    @w = 0.10
-    @h = 0.25
-    @y = -1.0
-    @x = -1.0
+    @w = 0.50
+    @h = 2.00
+    @y = 0.0
+    @x = 0.0
     @direction = LEFT
     @instructions = Set.new
     @abilities = ABILITIES.map { |ab| ab.new(self) }

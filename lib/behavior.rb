@@ -17,7 +17,7 @@ class Behavior
   end
 
   def current_time
-    Time.now.to_f * 100
+    Time.now.to_f
   end
 
 end

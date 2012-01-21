@@ -5,8 +5,8 @@ class Jumping < Behavior
   def initialize(*)
     super
     @jump_cooldown = false
-    @initial_speed = 0.050
-    @acceleration = 0.00145
+    @initial_speed = 5.0
+    @acceleration = 9.8
   end
 
   def handle
@@ -30,7 +30,7 @@ class Jumping < Behavior
   private
 
   def able_to_jump?
-    !@jumping && (!@jump_cooldown || (current_time - @jump_cooldown_start) > 20)
+    !@jumping && (!@jump_cooldown || (current_time - @jump_cooldown_start) > 0.20)
   end
 
   def land

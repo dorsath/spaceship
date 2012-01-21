@@ -6,7 +6,7 @@ class Walking < Behavior
     if @walking
       time = current_time - @walking_start
       subject.x -= (SPEED * subject.direction)
-      if time > 10
+      if time > 0.10
         @walking = false
       end
     end
