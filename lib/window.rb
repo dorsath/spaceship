@@ -41,6 +41,21 @@ class Window
     end
   end
 
+  def mouse_coordinates
+    Proc.new do |x, y|
+      @mouse_x = x
+      @mouse_y = y
+    end
+  end
+
+  def mouse_x
+    @mouse_x ||= 1
+  end
+
+  def mouse_y
+    @mouse_y ||= 1
+  end
+
   def display
     @display ||= Proc.new do
       glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
@@ -138,6 +153,7 @@ class Window
     glutCreateWindow(@title)
     glutKeyboardFunc(key_press)
     glutKeyboardUpFunc(key_up)
+    glutPassiveMotionFunc(mouse_coordinates)
     glutDisplayFunc(display)
     glutIdleFunc(idle)
     glutReshapeFunc(reshape)

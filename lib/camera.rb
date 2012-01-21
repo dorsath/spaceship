@@ -21,6 +21,10 @@ class Camera
     glTranslate(@offset_x * -1,y,z)
   end
 
+  def distance
+    @distance
+  end
+
   def center x
     @offset_x = x
   end

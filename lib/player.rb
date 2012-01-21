@@ -50,8 +50,21 @@ class Player
     glVertex(x + w, y)
 
     glEnd
+    aim_dot
 
     center_camera
+  end
+
+  def aim_dot
+    x = (world.mouse_x / 600.0 - 0.5) * world.camera.distance * 0.9
+    y = (world.mouse_y / 600.0 - 0.75) * world.camera.distance * -0.9
+    #puts "x:y #{x}:#{y}"
+
+    glBegin(GL_LINES)
+    glColor(1,1,1)
+    glVertex(0,0,0)
+    glVertex(x + @x,y + @y + @h,0)
+    glEnd
   end
 
   def to(action)
