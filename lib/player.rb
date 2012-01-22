@@ -61,11 +61,9 @@ class Player
   end
 
   def draw_head
-    aim_dot
-
     glColor(1.0, 1.0, 0.0)
-    glTranslate(@w - 0.25,2.12,0.1)
-    glRotate(@head_rotation,0,0,1)
+    glTranslate(@w - 0.25 + @x,2.12 + @y,0.1)
+    glRotate(head_rotation,0,0,1)
     glBegin(GL_TRIANGLES)
     glVertex(-0.25, -0.25,0)
     glVertex(-0.25, 0.25,0)
@@ -74,11 +72,12 @@ class Player
 
   end
 
-  def aim_dot
+  def head_rotation
     x = (world.mouse_x - 300.0)
     y = (world.mouse_y - 300.0) * -1
-    @head_rotation = Math.atan((y/x)).to_deg
-    @head_rotation = 180 - (@head_rotation * -1) if x < 0
+    rotation = Math.atan((y/x)).to_deg
+    rotation = 180 - (rotation * -1) if x < 0
+    rotation
   end
 
   def to(action)
