@@ -1,12 +1,4 @@
 #!/bin/bash
 set -e
-
-gem install bundler
-bundle install
-
-#sdl not required since we're using glut
-#tar -xf SDL-1.2.14.tar.gz
-#cd SDL-1.2.14
-#./configure --disable-assembly
-#make
-#make install
+gem which bundler &> /dev/null || gem install bundler --no-ri --no-rdoc
+bundle check --no-color || time bundle install --no-color

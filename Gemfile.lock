@@ -1,16 +1,24 @@
 GEM
   remote: http://rubygems.org/
   specs:
+    diff-lcs (1.1.3)
     mkrf (0.2.3)
     rake (0.8.7)
+    rspec (2.8.0)
+      rspec-core (~> 2.8.0)
+      rspec-expectations (~> 2.8.0)
+      rspec-mocks (~> 2.8.0)
+    rspec-core (2.8.0)
+    rspec-expectations (2.8.0)
+      diff-lcs (~> 1.1.2)
+    rspec-mocks (2.8.0)
     ruby-opengl (0.60.1)
       mkrf (>= 0.2.0)
       rake
-    rubysdl (2.1.1)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  rspec
   ruby-opengl
-  rubysdl

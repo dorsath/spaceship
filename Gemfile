@@ -1,4 +1,4 @@
 source :rubygems
 
 gem 'ruby-opengl'
-gem 'rubysdl'
+gem 'rspec'
