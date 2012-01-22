@@ -8,8 +8,8 @@ Window.draw do
 
   title "Space wars"
 
-  width 900
-  height 900
+  width 770
+  height 450
 
   left 10
   top 10
@@ -35,6 +35,10 @@ Window.draw do
 
   on "j" do
     camera.turn_down
+  end
+
+  on "-" do
+    camera.zoom_out
   end
 
   on "f" do

@@ -7,14 +7,12 @@ class Body
     end
   end
 
-  def _draw
+  def draw
     @abilities.each do |ability|
       ability.handle_instructions(@instructions)
       ability.handle
     end
     @instructions.clear
-
-    draw
   end
 
   def to(action)

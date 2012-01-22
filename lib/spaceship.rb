@@ -7,6 +7,8 @@ class Spaceship < Body
     draw_fuselage
     draw_wings
     draw_propulsion
+
+    super
   end
 
   def draw_propulsion
