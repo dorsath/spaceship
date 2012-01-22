@@ -20,6 +20,7 @@ class Player
     @direction = LEFT
     @instructions = Set.new
     @abilities = ABILITIES.map { |ab| ab.new(self) }
+    @head_rotation = 0
   end
 
   attr_accessor :x, :y, :direction
@@ -41,6 +42,13 @@ class Player
     end
     @instructions.clear
 
+    draw_body
+    draw_head
+
+    center_camera
+  end
+
+  def draw_body
     glColor(1.0, 0.0, 0.0)
     glBegin(GL_POLYGON)
 
@@ -50,21 +58,27 @@ class Player
     glVertex(x + w, y)
 
     glEnd
+  end
+
+  def draw_head
     aim_dot
 
-    center_camera
+    glColor(1.0, 1.0, 0.0)
+    glTranslate(@w - 0.25,2.12,0.1)
+    glRotate(@head_rotation,0,0,1)
+    glBegin(GL_TRIANGLES)
+    glVertex(-0.25, -0.25,0)
+    glVertex(-0.25, 0.25,0)
+    glVertex(0.25,0,0 )
+    glEnd
+
   end
 
   def aim_dot
-    x = (world.mouse_x / 600.0 - 0.5) * world.camera.distance * 0.9
-    y = (world.mouse_y / 600.0 - 0.75) * world.camera.distance * -0.9
-    #puts "x:y #{x}:#{y}"
-
-    glBegin(GL_LINES)
-    glColor(1,1,1)
-    glVertex(0,0,0)
-    glVertex(x + @x,y + @y + @h,0)
-    glEnd
+    x = (world.mouse_x - 300.0)
+    y = (world.mouse_y - 300.0) * -1
+    @head_rotation = Math.atan((y/x)).to_deg
+    @head_rotation = 180 - (@head_rotation * -1) if x < 0
   end
 
   def to(action)

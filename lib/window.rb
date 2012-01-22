@@ -9,7 +9,7 @@ class Window
     @instance ||= new
   end
 
-  attr_reader :config, :key_handlers, :objects, :active_handlers, :start
+  attr_reader :config, :key_handlers, :objects, :active_handlers, :start, :width, :height
 
   def initialize
     @start = lambda {}
