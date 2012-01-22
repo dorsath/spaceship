@@ -71,18 +71,7 @@ class Spaceship
     glVertex(-0.25, 1,  0)
     glEnd
 
-    #right side
-    glBegin(GL_POLYGON)
-    glColor(0.35,0.25,0.25)
-    glVertex(   1 , 0   ,  1.5)
-    glVertex(   1 ,-0.25,  1.5)
-    glVertex(   1 ,-0.25,    0)
-    glVertex( 0.5 ,-0.25, -1.5)
-    glVertex( 0.5 , 0   , -1.5)
-    glVertex(   1 , 0   ,    0)
-    glEnd
-
-    #front side
+    #front  side
     glBegin(GL_POLYGON)
     glColor(0.35,0.25,0.25)
     glVertex( 0.5 ,-0.25, -1.5)
@@ -91,16 +80,15 @@ class Spaceship
     glVertex( 0.5 , 0   , -1.5)
     glEnd
 
-    #left side
-    glBegin(GL_POLYGON)
+    #left and right front side
+    glBegin(GL_QUADS)
     glColor(0.35,0.25,0.25)
-    glVertex(  -1 , 0   ,  1.5)
-    glVertex(  -1 ,-0.25,  1.5)
-    glVertex(  -1 ,-0.25,    0)
-    glVertex(-0.5 ,-0.25, -1.5)
-    glVertex(-0.5 , 0   , -1.5)
-    glVertex(  -1 , 0   ,    0)
+    glVertex(   -1,    0,    0)
+    glVertex(   -1,-0.25,    0)
+    glVertex(-0.50,-0.25, -1.5)
+    glVertex(-0.50,    0, -1.5)
     glEnd
+
 
     #bottom rear
     glBegin(GL_QUADS)
