@@ -16,6 +16,22 @@ Window.draw do
   add_camera Camera.new( 45, 45 , 10, 0, 3, 0)
   add :spaceship, Spaceship.new
 
+  on "a" do
+    camera.turn_left
+  end
+
+  on "d" do
+    camera.turn_right
+  end
+
+  on "w" do
+    camera.turn_up
+  end
+
+  on "s" do
+    camera.turn_down
+  end
+
   on "f" do
     enter_fullscreen
   end

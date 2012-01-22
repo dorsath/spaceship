@@ -3,6 +3,7 @@ require 'numeric'
 class Camera
 
   SPEED = 0.001
+  TURN_SPEED = 0.1
 
   attr_accessor :world
 
@@ -25,6 +26,22 @@ class Camera
 
   def distance
     @distance
+  end
+
+  def turn_right
+    @angle_y += TURN_SPEED
+  end
+
+  def turn_left
+    @angle_y -= TURN_SPEED
+  end
+
+  def turn_up
+    @angle_x += TURN_SPEED
+  end
+
+  def turn_down
+    @angle_x -= TURN_SPEED
   end
 
   def center x
