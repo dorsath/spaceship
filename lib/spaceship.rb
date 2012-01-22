@@ -3,6 +3,75 @@ class Spaceship
 
   def draw
     draw_fuselage
+    draw_wings
+  end
+
+
+  def draw_wings
+    wing_span = 2
+    #left
+
+    glBegin(GL_QUADS)
+    #front side
+    glColor(0.25, 0.25, 0.25)
+    glVertex( wing_span,    0, 1.5)
+    glVertex( wing_span, -0.25, 1.5)
+    glVertex(       1.0,-0.25, 0.0)
+    glVertex(       1.0,    0, 0.0)
+
+    #back side
+    glColor(0.20, 0.20, 0.20)
+    glVertex( wing_span,    0, 1.5)
+    glVertex( wing_span,-0.25, 1.5)
+    glVertex(       1.0,-0.25, 1.5)
+    glVertex(       1.0,    0, 1.5)
+    glEnd
+
+    #top and bottom
+    glBegin(GL_TRIANGLES)
+    glColor(1, 0, 0)
+    glVertex( wing_span,    0, 1.5)
+    glVertex(         1,    0, 1.5)
+    glVertex(         1,    0,   0)
+
+    glColor(0.1, 0.1, 0.1)
+    glVertex( wing_span,-0.25, 1.5)
+    glVertex(         1,-0.25, 1.5)
+    glVertex(         1,-0.25,   0)
+    glEnd
+
+    #right
+    wing_span = wing_span * -1
+
+    glBegin(GL_QUADS)
+    #front side
+    glColor(0.25, 0.25, 0.25)
+    glVertex( wing_span,    0, 1.5)
+    glVertex( wing_span, -0.25, 1.5)
+    glVertex(      -1.0,-0.25, 0.0)
+    glVertex(      -1.0,    0, 0.0)
+
+    #back side
+    glColor(0.20, 0.20, 0.20)
+    glVertex( wing_span,    0, 1.5)
+    glVertex( wing_span,-0.25, 1.5)
+    glVertex(      -1.0,-0.25, 1.5)
+    glVertex(      -1.0,    0, 1.5)
+    glEnd
+
+    #top and bottom
+    glBegin(GL_TRIANGLES)
+    glColor(1, 0, 0)
+    glVertex( wing_span,    0, 1.5)
+    glVertex(        -1,    0, 1.5)
+    glVertex(        -1,    0,   0)
+
+    glColor(0.1, 0.1, 0.1)
+    glVertex( wing_span,-0.25, 1.5)
+    glVertex(        -1,-0.25, 1.5)
+    glVertex(        -1,-0.25,   0)
+    glEnd
+
   end
 
   def draw_fuselage
@@ -133,8 +202,5 @@ class Spaceship
     glVertex(-0.5, -0.50,   0)
     glVertex(-0.5, -0.25,-1.5)
     glEnd
-
-
-
   end
 end

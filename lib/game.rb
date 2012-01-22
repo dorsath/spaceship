@@ -13,7 +13,7 @@ Window.draw do
   left 10
   top 10
 
-  add_camera Camera.new( 45, 45 , 10, 0, 3, 0)
+  add_camera Camera.new( 45, 45 , 10, 0, 0, 0)
   add :spaceship, Spaceship.new
 
   on "a" do
