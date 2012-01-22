@@ -1,11 +1,19 @@
+require 'lib/models/cylinder'
+
 class Spaceship
   attr_accessor :world
 
   def draw
     draw_fuselage
     draw_wings
+    draw_propulsion
   end
 
+  def draw_propulsion
+    glColor(0.1,0.1,0.1)
+    glutSolidCylinder(36, 0.2, 0.3, -0.50, 0, 1.5)
+    glutSolidCylinder(36, 0.2, 0.3,  0.50, 0, 1.5)
+  end
 
   def draw_wings
     wing_span = 2
