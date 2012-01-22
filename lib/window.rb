@@ -69,6 +69,11 @@ class Window
         glPushMatrix
 
         glTranslate(*position.values)
+        body.orientations do |x, y, z|
+          glRotate(x, 1, 0, 0)
+          glRotate(y, 0, 1, 0)
+          glRotate(z, 0, 0, 1)
+        end
         body.draw
         glPopMatrix
       end

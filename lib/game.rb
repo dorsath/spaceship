@@ -27,6 +27,14 @@ Window.draw do
     $spaceship.brake
   end
 
+  on "a" do
+    $spaceship.tilt_left
+  end
+
+  on "d" do
+    $spaceship.tilt_right
+  end
+
   on "h" do
     camera.turn_left
   end

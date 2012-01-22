@@ -2,6 +2,13 @@ require 'lib/models/cylinder'
 
 class Spaceship < Body
 
+  def initialize(*)
+    super
+    @x_angle = 0.0
+    @y_angle = 0.0
+    @z_angle = 0.0
+  end
+
   def draw
     draw_fuselage
     draw_wings
@@ -15,6 +22,19 @@ class Spaceship < Body
   def brake
     push(0, 0, 2)
   end
+
+  def tilt_left
+    @y_angle -= 0.1
+  end
+
+  def tilt_right
+    @y_angle += 0.1
+  end
+
+  def orientations
+    yield @x_angle, @y_angle, @z_angle
+  end
+
 
   def draw_propulsion
     glColor(0.1,0.1,0.1)
