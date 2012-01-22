@@ -1,14 +1,19 @@
 require 'lib/models/cylinder'
 
 class Spaceship < Body
-  attr_accessor :world
 
   def draw
     draw_fuselage
     draw_wings
     draw_propulsion
+  end
 
-    super
+  def accelerate
+    push(0, 0, -2.0)
+  end
+
+  def brake
+    push(0, 0, 2)
   end
 
   def draw_propulsion

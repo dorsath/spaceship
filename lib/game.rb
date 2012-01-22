@@ -1,8 +1,10 @@
 require 'set'
 require 'window'
-require 'body'
+require 'physics'
 require 'camera'
 require 'spaceship'
+
+$spaceship = Spaceship.new(10, 0, 0, 0)
 
 Window.draw do
 
@@ -15,10 +17,14 @@ Window.draw do
   top 10
 
   add_camera Camera.new( 45, 0 , 10, 0, 0, 0)
-  add :spaceship, Spaceship.new
+  add $spaceship, Position[0, 0, 0]
 
   on "w" do
-    tell(:spaceship).to(:accelerate)
+    $spaceship.accelerate
+  end
+
+  on "s" do
+    $spaceship.brake
   end
 
   on "h" do

@@ -31,6 +31,14 @@ class World
     @hash = hash
   end
 
+  def each &block
+    @hash.each &block
+  end
+
+  def add body, position
+    @hash[body] = position
+  end
+
   def over(time)
     @hash.each do |body, position|
       apply_gravity body, time

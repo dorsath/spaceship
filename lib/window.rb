@@ -17,6 +17,8 @@ class Window
     @key_handlers = []
     @objects = []
     @active_handlers = {}
+    @world = World.new(0)
+    @last_time = Time.now
   end
 
   def configure(&config)
@@ -58,15 +60,21 @@ class Window
 
   def display
     @display ||= Proc.new do
+      @world.over(Time.now - @last_time)
+
       glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
       glLoadIdentity
       set_camera
-      objects.each do |object|
+      @world.each do |body, position|
         glPushMatrix
-        object[:object].draw
+
+        glTranslate(*position.values)
+        body.draw
         glPopMatrix
       end
       glutSwapBuffers
+
+      @last_time = Time.now
     end
   end
 
@@ -84,7 +92,7 @@ class Window
   end
 
   def tell(name)
-    objects.find { |object| object[:name] == name }[:object]
+    @world.get(name)
   end
 
   def on(key, &block)
@@ -95,10 +103,8 @@ class Window
     @keyboard = block
   end
 
-  def add(name, object)
-    puts "Adding #{name.inspect}, which is a #{object.class.to_s.downcase}"
-    objects << { :object => object, :name => name }
-    object.world = self
+  def add(object, position)
+    @world.add(object, position)
   end
 
   def add_camera(object)
