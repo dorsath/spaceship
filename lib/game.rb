@@ -1,6 +1,7 @@
 require 'set'
 require 'window'
 require 'camera'
+require 'spaceship'
 
 Window.draw do
 
@@ -12,7 +13,8 @@ Window.draw do
   left 10
   top 10
 
-  add_camera Camera.new(10, 10, 0, 3, 0)
+  add_camera Camera.new(45, 140, 10, 0, 3, 0)
+  add :spaceship, Spaceship.new
 
   on "f" do
     enter_fullscreen

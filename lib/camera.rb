@@ -6,8 +6,9 @@ class Camera
 
   attr_accessor :world
 
-  def initialize(angle, distance, offset_x, offset_y, offset_z)
-    @angle = angle
+  def initialize(angle_x, angle_y, distance, offset_x, offset_y, offset_z)
+    @angle_x = angle_x
+    @angle_y = angle_y
     @distance = distance
     @offset_x = offset_x
     @offset_y = offset_y
@@ -15,10 +16,11 @@ class Camera
   end
 
   def draw
-    z = Math.cos(@angle.to_rad) * @distance * -1 + @offset_z * -1
-    y = Math.sin(@angle.to_rad) * @distance * -1 + @offset_y * -1
-    glRotate(@angle,1,0,0)
+    z = Math.cos(@angle_x.to_rad) * @distance * -1 + @offset_z * -1
+    y = Math.sin(@angle_x.to_rad) * @distance * -1 + @offset_y * -1
+    glRotate(@angle_x,1,0,0)
     glTranslate(@offset_x * -1,y,z)
+    glRotate(@angle_y,0,1,0)
   end
 
   def distance
