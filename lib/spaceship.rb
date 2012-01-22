@@ -44,7 +44,86 @@ class Spaceship
     glVertex(-0.75, -0.5, 1.5)
     glVertex( 0.75, -0.5, 1.5)
     glVertex( 1   , -0.25, 1.5)
+    glEnd
 
+    #front window
+    glBegin(GL_QUADS)
+    glColor(1,0.5,0.5)
+    glVertex( 0.5 , 0, -1.5)
+    glVertex(-0.5 , 0, -1.5)
+    glVertex(-0.25, 1, 0)
+    glVertex( 0.25, 1, 0)
+    glEnd
+
+    #right window
+    glBegin(GL_TRIANGLES)
+    glColor(1,0.3,0.3)
+    glVertex( 0.5 , 0, -1.5)
+    glVertex(   1 , 0,  0)
+    glVertex( 0.25, 1,  0)
+    glEnd
+
+    #left window
+    glBegin(GL_TRIANGLES)
+    glColor(1,0.3,0.3)
+    glVertex(-0.5 , 0, -1.5)
+    glVertex(  -1 , 0,  0)
+    glVertex(-0.25, 1,  0)
+    glEnd
+
+    #right side
+    glBegin(GL_POLYGON)
+    glColor(0.35,0.25,0.25)
+    glVertex(   1 , 0   ,  1.5)
+    glVertex(   1 ,-0.25,  1.5)
+    glVertex(   1 ,-0.25,    0)
+    glVertex( 0.5 ,-0.25, -1.5)
+    glVertex( 0.5 , 0   , -1.5)
+    glVertex(   1 , 0   ,    0)
+    glEnd
+
+    #front side
+    glBegin(GL_POLYGON)
+    glColor(0.35,0.25,0.25)
+    glVertex( 0.5 ,-0.25, -1.5)
+    glVertex(-0.5 ,-0.25, -1.5)
+    glVertex(-0.5 , 0   , -1.5)
+    glVertex( 0.5 , 0   , -1.5)
+    glEnd
+
+    #left side
+    glBegin(GL_POLYGON)
+    glColor(0.35,0.25,0.25)
+    glVertex(  -1 , 0   ,  1.5)
+    glVertex(  -1 ,-0.25,  1.5)
+    glVertex(  -1 ,-0.25,    0)
+    glVertex(-0.5 ,-0.25, -1.5)
+    glVertex(-0.5 , 0   , -1.5)
+    glVertex(  -1 , 0   ,    0)
+    glEnd
+
+    #bottom rear
+    glBegin(GL_POLYGON)
+    glColor(0.1,0.1,0.1)
+    glVertex(   1, -0.25, 1.5)
+    glVertex( 0.5, -0.50, 1.5)
+    glVertex(-0.5, -0.50, 1.5)
+    glVertex(  -1, -0.25, 1.5)
+    glVertex(  -1, -0.25,   0)
+    glVertex(-0.5, -0.50,   0)
+    glVertex( 0.5, -0.50,   0)
+    glVertex(   1, -0.25,   0)
+    glEnd
+
+    #bottom front
+    glBegin(GL_POLYGON)
+    glColor(0.1,0.1,0.1)
+    glVertex(   1, -0.25,   0)
+    glVertex( 0.5, -0.50,   0)
+    glVertex(-0.5, -0.50,   0)
+    glVertex(  -1, -0.25,   0)
+    glVertex(-0.5, -0.25,-1.5)
+    glVertex( 0.5, -0.25,-1.5)
     glEnd
   end
 end
