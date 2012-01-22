@@ -87,6 +87,11 @@ class Spaceship
     glVertex(   -1,-0.25,    0)
     glVertex(-0.50,-0.25, -1.5)
     glVertex(-0.50,    0, -1.5)
+
+    glVertex(    1,    0,    0)
+    glVertex(    1,-0.25,    0)
+    glVertex( 0.50,-0.25, -1.5)
+    glVertex( 0.50,    0, -1.5)
     glEnd
 
 
