@@ -1,6 +1,6 @@
-# OpenGL in Ruby
+# Spaceship shooter
 
-Just some things we made on an evening of happy hacking.
+A sunday morning experiment in opengl-ruby
 
 ## Installation
 
@@ -16,18 +16,13 @@ Just some things we made on an evening of happy hacking.
 
 ## Controls
 
-* `W`: jump
-* `A`: move left
-* `D`: move right
-* `space`: shoot
-* `R`: reload
+* `W`: turn camera up
+* `S`: turn camera down
+* `A`: turn camera to the left
+* `D`: turn camera to the right
 
 * `f`: fullscreen
 * `F`: exit fullscreen
-
-* `h`: move screen to left
-* `l`: move screen to right
-
 
 ## More
 
