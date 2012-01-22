@@ -63,7 +63,7 @@ class Window
       set_camera
       objects.each do |object|
         glPushMatrix
-        object[:object].draw
+        object[:object]._draw
         glPopMatrix
       end
       glutSwapBuffers

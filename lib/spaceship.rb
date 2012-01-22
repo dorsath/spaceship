@@ -1,6 +1,6 @@
 require 'lib/models/cylinder'
 
-class Spaceship
+class Spaceship < Body
   attr_accessor :world
 
   def draw
@@ -211,4 +211,5 @@ class Spaceship
     glVertex(-0.5, -0.25,-1.5)
     glEnd
   end
+
 end
