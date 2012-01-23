@@ -1,23 +1,39 @@
 Position = Struct.new(:x, :y, :z)
 
-
 class Body
-
-  def self.[](*args)
-    new(*args)
-  end
-
 
   attr_accessor :mass, :x_velocity, :y_velocity, :z_velocity
 
-  def initialize(mass, x_velocity, y_velocity, z_velocity)
-    @mass, @x_velocity, @y_velocity, @z_velocity = mass, x_velocity, y_velocity, z_velocity
+  def initialize(attributes = {})
+    assign_attributes attributes
+  end
+
+  def assign_attributes(attributes)
+    attributes.each do |key, value|
+      send "#{key}=", value
+    end
   end
 
   def push(x, y, z)
     self.x_velocity += (x.to_f / mass)
     self.y_velocity += (y.to_f / mass)
     self.z_velocity += (z.to_f / mass)
+  end
+
+  def mass
+    @mass.to_f
+  end
+
+  def x_velocity
+    @x_velocity.to_f
+  end
+
+  def y_velocity
+    @y_velocity.to_f
+  end
+
+  def z_velocity
+    @z_velocity.to_f
   end
 
 end

@@ -4,7 +4,7 @@ require 'physics'
 require 'camera'
 require 'spaceship'
 
-$spaceship = Spaceship.new(10, 0, 0, 0)
+$spaceship = Spaceship.new(:mass => 10)
 
 Window.draw do
 

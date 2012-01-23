@@ -2,10 +2,10 @@ require 'physics'
 
 describe Body do
 
-  subject { Body[10, 1, 2, 0] } # 1 m/s over x as
+  subject { Body.new(:mass => 10, :x_velocity => 1, :y_velocity => 2, :z_velocity => 0) }
 
   before do
-    subject.push(2, 3, 1) # 2 Ns over x as
+    subject.push(2, 3, 1)
   end
 
   it "can be pushed along x axis" do
@@ -26,7 +26,7 @@ describe World do
 
   context "in a world without gravity" do
 
-    let(:body) { Body[10, 1, 2, 0] }
+    let(:body) { Body.new(:mass => 10, :x_velocity => 1, :y_velocity => 2, :z_velocity => 0) }
 
     let(:position) { Position[0, 0, 0] }
 
@@ -50,7 +50,7 @@ describe World do
 
   context "with gravity and a stationary body" do
 
-    let(:body) { Body[10, 0, 0, 0] }
+    let(:body) { Body.new(:mass => 10) }
 
     let(:position) { Position[0, 0, 0] }
 
