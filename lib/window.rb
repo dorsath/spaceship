@@ -17,7 +17,7 @@ class Window
     @key_handlers = []
     @objects = []
     @active_handlers = {}
-    @world = World.new(0)
+    @world = Physics::World.new(0)
     @last_time = Time.now
   end
 
@@ -60,25 +60,23 @@ class Window
 
   def display
     @display ||= Proc.new do
-      @world.over(Time.now - @last_time)
 
       glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
       glLoadIdentity
       set_camera
+
       @world.each do |body, position|
         glPushMatrix
 
         glTranslate(*position.values)
-        body.orientations do |x, y, z|
-          glRotate(x, 1, 0, 0)
-          glRotate(y, 0, 1, 0)
-          glRotate(z, 0, 0, 1)
-        end
         body.draw
+
         glPopMatrix
       end
+
       glutSwapBuffers
 
+      @world.over(Time.now - @last_time)
       @last_time = Time.now
     end
   end

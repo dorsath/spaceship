@@ -5,6 +5,7 @@ require 'camera'
 require 'spaceship'
 
 $spaceship = Spaceship.new(:mass => 10)
+#$spaceship.yaw! 90.degrees
 
 Window.draw do
 
@@ -17,7 +18,7 @@ Window.draw do
   top 10
 
   add_camera Camera.new( 45, 0 , 10, 0, 0, 0)
-  add $spaceship, Position[0, 0, 0]
+  add $spaceship, Physics::Position[0, 0, 0]
 
   on "w" do
     $spaceship.accelerate

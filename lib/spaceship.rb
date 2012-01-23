@@ -1,40 +1,34 @@
 require 'lib/models/cylinder'
 
-class Spaceship < Body
+class Spaceship < Physics::Body
 
-  def initialize(*)
-    super
-    @x_angle = 0.0
-    @y_angle = 0.0
-    @z_angle = 0.0
+  def accelerate
+    push(0, 0, -1.0)
+  end
+
+  def brake
+    push(0, 0, 1.0)
+  end
+
+  SPIN_AMOUNT = 0.5.degrees
+
+  def tilt_left
+    yaw! SPIN_AMOUNT
+  end
+
+  def tilt_right
+    yaw! -SPIN_AMOUNT
   end
 
   def draw
+    glRotate(orientation[0,0].to_degrees, 1, 0, 0)
+    glRotate(orientation[1,0].to_degrees, 0, 1, 0)
+    glRotate(orientation[2,0].to_degrees, 0, 0, 1)
+
     draw_fuselage
     draw_wings
     draw_propulsion
   end
-
-  def accelerate
-    push(0, 0, -2.0)
-  end
-
-  def brake
-    push(0, 0, 2)
-  end
-
-  def tilt_left
-    @y_angle -= 0.1
-  end
-
-  def tilt_right
-    @y_angle += 0.1
-  end
-
-  def orientations
-    yield @x_angle, @y_angle, @z_angle
-  end
-
 
   def draw_propulsion
     glColor(0.1,0.1,0.1)
