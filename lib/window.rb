@@ -17,8 +17,9 @@ class Window
     @key_handlers = []
     @active_handlers = {}
     @world = Physics::World.new(0)
+    @interface_objects = []
     @last_time = Time.now
-    @camera = Camera.new(45, 0 , 10, 0, 0, 0)
+    @camera = Camera.new(45, 0 , 50, 0, 0, 0)
   end
 
   def configure(&config)
@@ -80,6 +81,12 @@ class Window
       glPopMatrix
     end
 
+    @interface_objects.each do |object|
+      glPushMatrix
+      object.draw
+      glPopMatrix
+    end
+
     glutSwapBuffers
 
     @world.over(Time.now - @last_time)
@@ -107,6 +114,10 @@ class Window
 
   def add(object, position = nil)
     @world.add(object, position || default_position)
+  end
+
+  def add_interface object
+    @interface_objects << object
   end
 
   def default_position

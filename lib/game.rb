@@ -3,6 +3,7 @@ require 'window'
 require 'physics'
 require 'camera'
 require 'spaceship'
+require 'scene'
 
 $spaceship = Spaceship.new(:mass => 10)
 $spaceship.yaw! 90.degrees
@@ -18,6 +19,7 @@ Window.draw do
   top 10
 
   add $spaceship
+  add_interface Scene.new
 
   on GLUT_KEY_UP do
     $spaceship.accelerate
