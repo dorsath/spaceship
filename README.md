@@ -16,13 +16,7 @@ A sunday morning experiment in opengl-ruby
 
 ## Controls
 
-* `W`: turn camera up
-* `S`: turn camera down
-* `A`: turn camera to the left
-* `D`: turn camera to the right
-
-* `f`: fullscreen
-* `F`: exit fullscreen
+See `lib/game.rb`
 
 ## More
 
