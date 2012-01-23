@@ -5,8 +5,6 @@ class Camera
   SPEED = 0.001
   TURN_SPEED = 0.1
 
-  attr_accessor :world
-
   def initialize(angle_x, angle_y, distance, offset_x, offset_y, offset_z)
     @angle_x = angle_x
     @angle_y = angle_y

@@ -10,16 +10,6 @@ class Spaceship < Physics::Body
     push(0, 0, 1.0)
   end
 
-  SPIN_AMOUNT = 0.5.degrees
-
-  def tilt_left
-    yaw! SPIN_AMOUNT
-  end
-
-  def tilt_right
-    yaw! -SPIN_AMOUNT
-  end
-
   def draw
     glRotate(orientation[0,0].to_degrees, 1, 0, 0)
     glRotate(orientation[1,0].to_degrees, 0, 1, 0)

@@ -5,7 +5,7 @@ require 'camera'
 require 'spaceship'
 
 $spaceship = Spaceship.new(:mass => 10)
-#$spaceship.yaw! 90.degrees
+$spaceship.yaw! 90.degrees
 
 Window.draw do
 
@@ -17,23 +17,30 @@ Window.draw do
   left 10
   top 10
 
-  add_camera Camera.new( 45, 0 , 10, 0, 0, 0)
-  add $spaceship, Physics::Position[0, 0, 0]
+  add $spaceship
 
-  on "w" do
+  on GLUT_KEY_UP do
     $spaceship.accelerate
   end
 
-  on "s" do
+  on GLUT_KEY_DOWN do
     $spaceship.brake
   end
 
+  on "w" do
+    $spaceship.pitch! 0.5.degrees
+  end
+
+  on "s" do
+    $spaceship.pitch! -0.5.degrees
+  end
+
   on "a" do
-    $spaceship.tilt_left
+    $spaceship.yaw! 0.5.degrees
   end
 
   on "d" do
-    $spaceship.tilt_right
+    $spaceship.yaw! -0.5.degrees
   end
 
   on "h" do
@@ -54,6 +61,10 @@ Window.draw do
 
   on "-" do
     camera.zoom_out
+  end
+
+  on "=" do
+    camera.zoom_in
   end
 
   on "f" do

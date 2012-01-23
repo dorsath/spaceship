@@ -9,45 +9,53 @@ class Window
     @instance ||= new
   end
 
-  attr_reader :config, :key_handlers, :objects, :active_handlers, :start, :width, :height
+  attr_reader :config, :key_handlers, :active_handlers, :start, :width, :height, :camera
 
   def initialize
     @start = lambda {}
     @config = lambda {}
     @key_handlers = []
-    @objects = []
     @active_handlers = {}
     @world = Physics::World.new(0)
     @last_time = Time.now
+    @camera = Camera.new(45, 0 , 10, 0, 0, 0)
   end
 
   def configure(&config)
     @config = config
   end
 
-  def key_press
-    @key_press ||= Proc.new do |key, x, y|
-      #puts "Pressed #{key.chr.inspect}"
-      key_handlers.each do |handler|
-        if key.chr === handler[:key]
-          active_handlers[key] = handler[:block]
-        end
+  def key_press(key, x, y)
+    puts "Pressed #{key.chr.inspect}"
+    key_handlers.each do |handler|
+      if key.chr === handler[:key]
+        active_handlers[key] = handler[:block]
       end
     end
   end
 
-  def key_up
-    @key_up ||= Proc.new do |key, x, y|
-      #puts "Released #{key.chr.inspect}"
-      active_handlers.delete(key)
+  def special_key_press(key, x, y)
+    puts "Pressed: #{key}"
+    key_handlers.each do |handler|
+      if key == handler[:key]
+        active_handlers[key] = handler[:block]
+      end
     end
   end
 
-  def mouse_coordinates
-    Proc.new do |x, y|
-      @mouse_x = x
-      @mouse_y = y
-    end
+  def special_key_up(key, x, y)
+    puts "Special released #{key}"
+    active_handlers.delete(key)
+  end
+
+  def key_up(key, x, y)
+    puts "Released #{key.chr.inspect}"
+    active_handlers.delete(key)
+  end
+
+  def mouse_coordinates(x, y)
+    @mouse_x = x
+    @mouse_y = y
   end
 
   def mouse_x
@@ -59,43 +67,34 @@ class Window
   end
 
   def display
-    @display ||= Proc.new do
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+    glLoadIdentity
+    camera.draw
 
-      glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-      glLoadIdentity
-      set_camera
+    @world.each do |body, position|
+      glPushMatrix
 
-      @world.each do |body, position|
-        glPushMatrix
+      glTranslate(*position.values)
+      body.draw
 
-        glTranslate(*position.values)
-        body.draw
-
-        glPopMatrix
-      end
-
-      glutSwapBuffers
-
-      @world.over(Time.now - @last_time)
-      @last_time = Time.now
+      glPopMatrix
     end
+
+    glutSwapBuffers
+
+    @world.over(Time.now - @last_time)
+    @last_time = Time.now
   end
 
   def idle
-    @idle ||= Proc.new do
-      active_handlers.each do |key, handler|
-        handler.call
-      end
-      glutPostRedisplay
+    active_handlers.each do |key, handler|
+      handler.call
     end
+    glutPostRedisplay
   end
 
   def title(title)
     @title = title
-  end
-
-  def tell(name)
-    @world.get(name)
   end
 
   def on(key, &block)
@@ -106,21 +105,12 @@ class Window
     @keyboard = block
   end
 
-  def add(object, position)
-    @world.add(object, position)
+  def add(object, position = nil)
+    @world.add(object, position || default_position)
   end
 
-  def add_camera(object)
-    @camera = object
-    @camera.world = self
-  end
-
-  def camera
-    @camera
-  end
-
-  def set_camera
-    @camera.draw if @camera
+  def default_position
+    Physics::Position[0,0,0]
   end
 
   def width(width)
@@ -160,12 +150,16 @@ class Window
     glutInitWindowSize(@width, @height)
     glutInitWindowPosition(@left, @top)
     glutCreateWindow(@title)
-    glutKeyboardFunc(key_press)
-    glutKeyboardUpFunc(key_up)
-    glutPassiveMotionFunc(mouse_coordinates)
-    glutDisplayFunc(display)
-    glutIdleFunc(idle)
-    glutReshapeFunc(reshape)
+
+    glutKeyboardFunc        method(:key_press).to_proc
+    glutSpecialFunc         method(:special_key_press).to_proc
+    glutSpecialUpFunc       method(:special_key_up).to_proc
+    glutKeyboardUpFunc      method(:key_up).to_proc
+    glutPassiveMotionFunc   method(:mouse_coordinates).to_proc
+    glutDisplayFunc         method(:display).to_proc
+    glutIdleFunc            method(:idle).to_proc
+    glutReshapeFunc         method(:reshape).to_proc
+
     puts "Performing starting options"
     init_gl
     instance_eval &start
@@ -173,14 +167,12 @@ class Window
     glutMainLoop
   end
 
-  def reshape
-    reshape = lambda {
-      glViewport(0, 0, @width, @height)
-      glMatrixMode(GL_PROJECTION)
-      glLoadIdentity
-      gluPerspective(45, @width/@height, 0.1, 100) #aspect ratio
-      glMatrixMode(GL_MODELVIEW)
-    }
+  def reshape(w, h)
+    glViewport(0, 0, @width, @height)
+    glMatrixMode(GL_PROJECTION)
+    glLoadIdentity
+    gluPerspective(45, @width/@height, 0.1, 100) #aspect ratio
+    glMatrixMode(GL_MODELVIEW)
   end
 
   def init_gl
