@@ -2,11 +2,9 @@ require 'set'
 require 'window'
 require 'physics'
 require 'camera'
-require 'spaceship'
-require 'scene'
+require 'ball'
 
-$spaceship = Spaceship.new(:mass => 10)
-$spaceship.yaw! 90.degrees
+$white_ball = Ball.new(:mass => 0.5,  :forces => M[[2],[0], [2]])
 
 Window.draw do
 
@@ -18,31 +16,13 @@ Window.draw do
   left 10
   top 10
 
-  add $spaceship
-  add_interface Scene.new
+  add $white_ball
+  add Ball.new(:mass => 0.5, :forces => M[[0],[0], [0]]), Physics::Position.new(3,0,3)
 
-  on GLUT_KEY_UP do
-    $spaceship.accelerate
-  end
+  camera.set(90,  0, 10, 0, 0, 2)
 
-  on GLUT_KEY_DOWN do
-    $spaceship.brake
-  end
-
-  on "w" do
-    $spaceship.pitch! 0.5.degrees
-  end
-
-  on "s" do
-    $spaceship.pitch! -0.5.degrees
-  end
-
-  on "a" do
-    $spaceship.yaw! 0.5.degrees
-  end
-
-  on "d" do
-    $spaceship.yaw! -0.5.degrees
+  on " " do
+    $white_ball.push(0,0,0.1)
   end
 
   on "h" do
