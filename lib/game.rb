@@ -50,6 +50,14 @@ Window.draw do
     $spaceship.roll! TURN_SPEED
   end
 
+  on "n" do
+    $spaceship.start_engine
+  end
+
+  on "m" do
+    $spaceship.stop_engine
+  end
+
   on "h" do
     camera.turn_left
   end

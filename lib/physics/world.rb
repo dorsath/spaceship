@@ -17,11 +17,9 @@ module Physics
 
     def over(time)
       each do |body, position|
-        gravity! body
+        gravity! body unless @gravity == 0.0
 
-        accelerations = body.accelerations.inject(Vector[0,0,0]) do |sum,(key,value)|
-          sum + value
-        end
+        accelerations = body.accelerations.inject(Vector[0,0,0]) { |sum,(key,value)| sum + value }
 
         position.x += body.velocity[0,0] * time + 0.5 * accelerations[0] * time**2
         position.y += body.velocity[1,0] * time + 0.5 * accelerations[1] * time**2
