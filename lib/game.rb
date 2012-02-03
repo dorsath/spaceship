@@ -1,33 +1,30 @@
 require 'set'
-require 'window'
+require 'window2'
+require 'config'
 require 'physics'
 require 'camera'
 require 'spaceship'
 require 'scene'
 
 $spaceship = Spaceship.new(:mass => 200)
-10.times { $spaceship.accelerate }
+#10.times { $spaceship.accelerate }
 
 TURN_SPEED = 0.5.degrees
 
-Window.draw do
+Game.define do
 
-  title "Space wars"
-
-  width 770
-  height 450
-
-  left 10
-  top 10
+  self.title  = "Space wars"
 
   add $spaceship
-  add_interface Scene.new
+  add_non_interactive Scene.new
 
   on GLUT_KEY_UP do
+    puts "Accel"
     $spaceship.accelerate
   end
 
   on GLUT_KEY_DOWN do
+    puts "BRAKE"
     $spaceship.brake
   end
 

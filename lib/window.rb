@@ -16,10 +16,11 @@ class Window
     @config = lambda {}
     @key_handlers = []
     @active_handlers = {}
-    @world = Physics::World.new(0)
+    @world = Physics::World.new(9.8)
     @interface_objects = []
     @last_time = Time.now
-    @camera = Camera.new(45, 45 , 50, 0, 0, 0)
+    @camera = Camera.new(0, 45 , 50, 0, 0, 0)
+    @start_time = Time.now
   end
 
   def configure(&config)
@@ -68,6 +69,8 @@ class Window
   end
 
   def display
+    @world.over(Time.now - @last_time)
+    @last_time = Time.now
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
     glLoadIdentity
     camera.draw
@@ -75,6 +78,7 @@ class Window
     @world.each do |body, position|
       glPushMatrix
 
+      puts "#{@start_time - Time.now} - #{position.values.inspect}"
       glTranslate(*position.values)
       body.draw
 
@@ -88,20 +92,25 @@ class Window
     end
 
     glutSwapBuffers
-
-    @world.over(Time.now - @last_time)
-    @last_time = Time.now
   end
 
   def idle
+  end
+
+  def timer(v)
     active_handlers.each do |key, handler|
       handler.call
     end
-    if (Time.now.to_f * 1000).to_i % 10 == 0
-      glutPostRedisplay
-      sleep 0.01
-    end
+    glutPostRedisplay
+    retime
   end
+
+  DT = 1000.0 / 30.0
+
+  def retime
+    glutTimerFunc DT, method(:timer).to_proc, 0
+  end
+
 
   def title(title)
     @title = title
@@ -171,8 +180,9 @@ class Window
     glutKeyboardUpFunc      method(:key_up).to_proc
     glutPassiveMotionFunc   method(:mouse_coordinates).to_proc
     glutDisplayFunc         method(:display).to_proc
-    glutIdleFunc            method(:idle).to_proc
+    #glutIdleFunc            method(:idle).to_proc
     glutReshapeFunc         method(:reshape).to_proc
+    retime
 
     puts "Performing starting options"
     init_gl

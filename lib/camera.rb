@@ -2,8 +2,8 @@ require 'numeric'
 
 class Camera
 
-  SPEED = 0.001
-  TURN_SPEED = 0.1
+  SPEED = 0.1
+  TURN_SPEED = 1
 
   def initialize(angle_x, angle_y, distance, offset_x, offset_y, offset_z)
     @angle_x = angle_x

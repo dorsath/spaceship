@@ -22,8 +22,10 @@ end.parse!
 
 $:.unshift(File.expand_path("../lib", __FILE__))
 
-def puts(*args)
-  STDOUT.puts(*args) if OPTIONS[:verbose]
+module Kernel
+  def puts(*args)
+    STDOUT.puts(*args) if OPTIONS[:verbose]
+  end
 end
 
 require 'game'
