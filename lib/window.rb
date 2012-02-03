@@ -97,7 +97,10 @@ class Window
     active_handlers.each do |key, handler|
       handler.call
     end
-    glutPostRedisplay
+    if (Time.now.to_f * 1000).to_i % 10 == 0
+      glutPostRedisplay
+      sleep 0.01
+    end
   end
 
   def title(title)
