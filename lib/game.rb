@@ -6,9 +6,8 @@ require 'spaceship'
 require 'scene'
 
 $spaceship = Spaceship.new(:mass => 200)
-10.times { $spaceship.accelerate }
 
-TURN_SPEED = 0.5.degrees
+TURN_SPEED = 0.1.degrees
 
 Window.draw do
 

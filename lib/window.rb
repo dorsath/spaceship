@@ -20,6 +20,7 @@ class Window
     @interface_objects = []
     @last_time = Time.now
     @camera = Camera.new(45, 45 , 50, 0, 0, 0)
+    @start_time = Time.now
   end
 
   def configure(&config)
@@ -75,6 +76,9 @@ class Window
     @world.each do |body, position|
       glPushMatrix
 
+      #puts "position at #{Time.now - @start_time}: #{position.values.inspect}"
+
+
       glTranslate(*position.values)
       body.draw
 
@@ -99,7 +103,7 @@ class Window
     end
     if (Time.now.to_f * 1000).to_i % 10 == 0
       glutPostRedisplay
-      sleep 0.01
+      sleep 0.005
     end
   end
 

@@ -6,7 +6,7 @@ module Physics
   class Body
 
     include Math
-    attr_accessor :mass, :forces, :orientation
+    attr_accessor :mass, :orientation, :velocity, :accelerations
 
     def initialize(attributes = {})
       default_values!
@@ -14,9 +14,10 @@ module Physics
     end
 
     def default_values!
-      self.mass        = 0.0
-      self.forces      = M[ [0.0], [0.0], [0.0] ]
-      self.orientation = M[ [0.0], [0.0], [0.0] ]
+      self.mass            = 0.0
+      self.orientation     = M[ [0.0], [0.0], [0.0] ]
+      self.velocity        = M[ [0.0], [0.0], [0.0] ]
+      self.accelerations   = {}
     end
 
     def assign_attributes(attributes)
@@ -32,7 +33,7 @@ module Physics
     def push(x, y, z)
       adjustments = M[[x.to_f], [y.to_f], [z.to_f]]
       a = (roll * (pitch * (yaw * adjustments)))
-      self.forces += M[[a[0,0] / mass], [a[1,0] / mass], [a[2,0] / mass]]
+      self.velocity += M[[a[0,0] /mass], [a[1,0] /mass], [a[2,0] /mass]]
     end
 
     def yaw
