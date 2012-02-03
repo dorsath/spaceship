@@ -36,8 +36,11 @@ module Physics
     end
 
     def yaw
-      r = orientation[1,0]
-      m = Matrix[
+      yaw_matrix(orientation[1,0])
+    end
+
+    def yaw_matrix(r)
+      Matrix[
         [  cos(r), 0, sin(r) ],
         [       0, 1,      0 ],
         [ -sin(r), 0, cos(r) ]
@@ -45,8 +48,11 @@ module Physics
     end
 
     def pitch
-      r = orientation[2,0]
-      m = Matrix[
+      pitch_matrix(orientation[2,0])
+    end
+
+    def pitch_matrix(r)
+      Matrix[
         [  cos(r), -sin(r), 0 ],
         [  sin(r),  cos(r), 0 ],
         [       0,       0, 1 ]
@@ -54,29 +60,34 @@ module Physics
     end
 
     def roll
-      r = orientation[0,0]
-      m = Matrix[
+      roll_matrix(orientation[0,0])
+    end
+
+    def roll_matrix(r)
+      Matrix[
         [  1,      0,       0 ],
         [  0, cos(r), -sin(r) ],
         [  0, sin(r),  cos(r) ]
       ]
     end
 
-
     # heading, azimuth, yaw
     def yaw!(r)
-      adjust_orientation 0, r, 0
+      # self.orientation = yaw_matrix(r) * orientation
+      adjust_orientation 0, 0, r
     end
 
     # attitude, elevation, pitch
     def pitch!(r)
+      #self.orientation = pitch_matrix(r) * orientation
       adjust_orientation r, 0, 0
       #adjust_orientation (orientation[0,0] * r), 0, 0
     end
 
     # bank, tilt, roll
     def roll!(r)
-      adjust_orientation 0, 0, r
+      #self.orientation = roll_matrix(r) * orientation
+      adjust_orientation 0, r, 0
     end
 
     def adjust_orientation(x, y, z)

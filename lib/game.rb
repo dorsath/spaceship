@@ -6,7 +6,8 @@ require 'spaceship'
 require 'scene'
 
 $spaceship = Spaceship.new(:mass => 200)
-#$spaceship.yaw! 90.degrees
+
+TURN_SPEED = 0.5.degrees
 
 Window.draw do
 
@@ -30,19 +31,23 @@ Window.draw do
   end
 
   on "w" do
-    $spaceship.pitch! 0.5.degrees
+    $spaceship.pitch! TURN_SPEED
   end
 
   on "s" do
-    $spaceship.pitch! -0.5.degrees
+    $spaceship.pitch! -TURN_SPEED
   end
 
   on "a" do
-    $spaceship.roll! 0.5.degrees
+    $spaceship.yaw! TURN_SPEED
   end
 
   on "d" do
-    $spaceship.roll! -0.5.degrees
+    $spaceship.yaw! -TURN_SPEED
+  end
+
+  on "e" do
+    $spaceship.roll! TURN_SPEED
   end
 
   on "h" do
