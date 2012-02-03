@@ -19,7 +19,7 @@ class Window
     @world = Physics::World.new(9.8)
     @interface_objects = []
     @last_time = Time.now
-    @camera = Camera.new(0, 45 , 50, 0, 0, 0)
+    @camera = Camera.new(45, 45 , 50, 0, 0, 0)
     @start_time = Time.now
   end
 
@@ -78,7 +78,9 @@ class Window
     @world.each do |body, position|
       glPushMatrix
 
-      puts "#{@start_time - Time.now} - #{position.values.inspect}"
+      #puts "position at #{Time.now - @start_time}: #{position.values.inspect}"
+
+
       glTranslate(*position.values)
       body.draw
 
@@ -101,14 +103,10 @@ class Window
     active_handlers.each do |key, handler|
       handler.call
     end
-    glutPostRedisplay
-    retime
-  end
-
-  DT = 1000.0 / 30.0
-
-  def retime
-    glutTimerFunc DT, method(:timer).to_proc, 0
+    if (Time.now.to_f * 1000).to_i % 10 == 0
+      glutPostRedisplay
+      sleep 0.005
+    end
   end
 
 

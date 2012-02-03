@@ -2,6 +2,14 @@ require 'lib/models/cylinder'
 
 class Spaceship < Physics::Body
 
+  def start_engine
+    self.accelerations[:engine] = Vector[0,0,-2]
+  end
+
+  def stop_engine
+    self.accelerations.delete(:engine)
+  end
+
   def accelerate
     push(0, 0, -5.0)
   end
