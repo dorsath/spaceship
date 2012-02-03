@@ -32,7 +32,6 @@ module Physics
     def push(x, y, z)
       adjustments = M[[x.to_f], [y.to_f], [z.to_f]]
       a = (roll * (pitch * (yaw * adjustments)))
-      puts a
       self.forces += M[[a[0,0] / mass], [a[1,0] / mass], [a[2,0] / mass]]
     end
 

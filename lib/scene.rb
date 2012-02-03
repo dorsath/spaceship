@@ -1,8 +1,10 @@
 require 'lib/interface'
+require 'lib/models/circle'
 
 class Scene < Interface
   def draw
     draw_axes
+    draw_circles
   end
 
   def draw_axes
@@ -14,4 +16,11 @@ class Scene < Interface
     glVertex(0,0,  2000)
     glEnd
   end
+
+  def draw_circles
+    20.times do |i|
+      draw_circle(i * 25, 36)
+    end
+  end
+
 end
