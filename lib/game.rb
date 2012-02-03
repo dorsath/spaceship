@@ -1,5 +1,5 @@
 require 'set'
-require 'window2'
+require 'window'
 require 'config'
 require 'physics'
 require 'camera'
@@ -18,12 +18,10 @@ Game.define do
   add_non_interactive Scene.new
 
   on GLUT_KEY_UP do
-    puts "Accel"
     $spaceship.accelerate
   end
 
   on GLUT_KEY_DOWN do
-    puts "BRAKE"
     $spaceship.brake
   end
 
