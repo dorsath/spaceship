@@ -3,11 +3,11 @@ require 'lib/models/cylinder'
 class Spaceship < Physics::Body
 
   def accelerate
-    push(0, 0, -1.0)
+    push(0, 0, -5.0)
   end
 
   def brake
-    push(0, 0, 1.0)
+    push(0, 0, 5.0)
   end
 
   def draw
@@ -135,13 +135,13 @@ class Spaceship < Physics::Body
     glEnd
 
     #front window
-    glBegin(GL_QUADS)
-    glColor(1,0.5,0.5)
-    glVertex( 0.5 , 0, -1.5)
-    glVertex(-0.5 , 0, -1.5)
-    glVertex(-0.25, 1, 0)
-    glVertex( 0.25, 1, 0)
-    glEnd
+    #glBegin(GL_QUADS)
+    #glColor(1,0.5,0.5)
+    #glVertex( 0.5 , 0, -1.5)
+    #glVertex(-0.5 , 0, -1.5)
+    #glVertex(-0.25, 1, 0)
+    #glVertex( 0.25, 1, 0)
+    #glEnd
 
     #right window
     glBegin(GL_TRIANGLES)

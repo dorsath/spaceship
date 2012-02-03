@@ -15,15 +15,28 @@ class Camera
   end
 
   def draw
-    z = Math.cos(@angle_x.to_rad) * @distance * -1 + @offset_z * -1
-    y = Math.sin(@angle_x.to_rad) * @distance * -1 + @offset_y * -1
-    glRotate(@angle_x,1,0,0)
-    glTranslate(@offset_x * -1,y,z)
-    glRotate(@angle_y,0,1,0)
+    if @follow_object
+      glRotate(@follow_object.orientation[0,0].to_degrees,-1, 0, 0)
+      glRotate(@follow_object.orientation[1,0].to_degrees, 0,-1, 0)
+      glRotate(@follow_object.orientation[2,0].to_degrees, 0, 0,-1)
+
+      glTranslate(0,0,-@distance)
+    else
+      z = Math.cos(@angle_x.to_rad) * @distance * -1 + @offset_z * -1
+      y = Math.sin(@angle_x.to_rad) * @distance * -1 + @offset_y * -1
+      glRotate(@angle_x,1,0,0)
+      glTranslate(@offset_x * -1,y,z)
+      glRotate(@angle_y,0,1,0)
+    end
   end
 
   def distance
     @distance
+  end
+
+  def follow follow_object, distance
+    @follow_object = follow_object
+    @distance = distance
   end
 
   def turn_right

@@ -5,8 +5,8 @@ require 'camera'
 require 'spaceship'
 require 'scene'
 
-$spaceship = Spaceship.new(:mass => 10)
-$spaceship.yaw! 90.degrees
+$spaceship = Spaceship.new(:mass => 200)
+#$spaceship.yaw! 90.degrees
 
 Window.draw do
 
@@ -38,11 +38,11 @@ Window.draw do
   end
 
   on "a" do
-    $spaceship.yaw! 0.5.degrees
+    $spaceship.roll! 0.5.degrees
   end
 
   on "d" do
-    $spaceship.yaw! -0.5.degrees
+    $spaceship.roll! -0.5.degrees
   end
 
   on "h" do

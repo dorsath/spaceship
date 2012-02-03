@@ -19,7 +19,7 @@ class Window
     @world = Physics::World.new(0)
     @interface_objects = []
     @last_time = Time.now
-    @camera = Camera.new(45, 0 , 50, 0, 0, 0)
+    @camera = Camera.new(45, 45 , 50, 0, 0, 0)
   end
 
   def configure(&config)
@@ -182,7 +182,7 @@ class Window
     glViewport(0, 0, @width, @height)
     glMatrixMode(GL_PROJECTION)
     glLoadIdentity
-    gluPerspective(45, @width/@height, 0.1, 100) #aspect ratio
+    gluPerspective(45, @width/@height, 0.1, 1000) #aspect ratio
     glMatrixMode(GL_MODELVIEW)
   end
 

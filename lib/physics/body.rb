@@ -32,6 +32,7 @@ module Physics
     def push(x, y, z)
       adjustments = M[[x.to_f], [y.to_f], [z.to_f]]
       a = (roll * (pitch * (yaw * adjustments)))
+      puts a
       self.forces += M[[a[0,0] / mass], [a[1,0] / mass], [a[2,0] / mass]]
     end
 
@@ -71,6 +72,7 @@ module Physics
     # attitude, elevation, pitch
     def pitch!(r)
       adjust_orientation r, 0, 0
+      #adjust_orientation (orientation[0,0] * r), 0, 0
     end
 
     # bank, tilt, roll
