@@ -11,11 +11,19 @@ class Spaceship < Physics::Body
   end
 
   def accelerate
+<<<<<<< HEAD
     push(0, 0, 10.0)
   end
 
   def brake
     push(0, 0, -10.0)
+=======
+    push(0, 0, -10.0)
+  end
+
+  def brake
+    push(0, 0, 10.0)
+>>>>>>> adds pushing in right direction
   end
 
   def draw
