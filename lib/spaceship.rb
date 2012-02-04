@@ -19,9 +19,7 @@ class Spaceship < Physics::Body
   end
 
   def draw
-    glRotate(orientation[0,0].to_degrees, 1, 0, 0)
-    glRotate(orientation[1,0].to_degrees, 0, 1, 0)
-    glRotate(orientation[2,0].to_degrees, 0, 0, 1)
+    glMultMatrix(rotation)
 
     draw_fuselage
     draw_wings
