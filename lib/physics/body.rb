@@ -35,7 +35,6 @@ module Physics
       #p forces
       adjustments = rotation * V[x.to_f, y.to_f, z.to_f, 0.0]
       self.velocity += V[*adjustments.to_a.first(3)] / mass
-      self.velocity += M[[a[0,0] /mass], [ a[1,0] /mass], [a[2,0] /mass], [0]]
     end
 
     def roll_matrix(r)
