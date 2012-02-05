@@ -1,6 +1,7 @@
 require 'matrix'
 require 'mathn'
 M = Matrix
+V = Vector
 
 module Physics
   class Body
@@ -33,17 +34,13 @@ module Physics
     def push(x, y, z)
       #p forces
       adjustments = M[[x.to_f], [y.to_f], [z.to_f]]
-      a = rotation * Vector[1,1,1,0]
+      a = rotation * V[1,1,1,0]
       self.velocity += M[[a[0,0] /mass], [a[1,0] /mass], [a[2,0] /mass]]
       p velocity
     end
 
-    def yaw
-      yaw_matrix(orientation[1,0])
-    end
-
     def roll_matrix(r)
-      Matrix[
+      M[
         [  cos(r), 0, sin(r), 0 ],
         [       0, 1,      0, 0 ],
         [ -sin(r), 0, cos(r), 0 ],
@@ -51,12 +48,8 @@ module Physics
       ]
     end
 
-    def pitch
-      pitch_matrix(orientation[2,0])
-    end
-
     def yaw_matrix(r)
-      Matrix[
+      M[
         [  cos(r), -sin(r), 0, 0 ],
         [  sin(r),  cos(r), 0, 0 ],
         [       0,       0, 1, 0 ],
@@ -64,12 +57,8 @@ module Physics
       ]
     end
 
-    def roll
-      roll_matrix(orientation[0,0])
-    end
-
     def pitch_matrix(r)
-      Matrix[
+      M[
         [  1,      0,       0, 0 ],
         [  0, cos(r), -sin(r), 0 ],
         [  0, sin(r),  cos(r), 0 ],
