@@ -33,16 +33,9 @@ module Physics
 
     def push(x, y, z)
       #p forces
-<<<<<<< HEAD
       adjustments = rotation * V[x.to_f, y.to_f, z.to_f, 0.0]
-      p adjustments
       self.velocity += V[*adjustments.to_a.first(3)] / mass
-      p velocity
-=======
-      adjustments = M[[x.to_f], [y.to_f], [z.to_f], [0]]
-      a = rotation * adjustments
-      self.velocity += M[[a[0,0] /mass], [-a[1,0] /mass], [a[2,0] /mass]]
->>>>>>> adds pushing in right direction
+      self.velocity += M[[a[0,0] /mass], [ a[1,0] /mass], [a[2,0] /mass], [0]]
     end
 
     def roll_matrix(r)
