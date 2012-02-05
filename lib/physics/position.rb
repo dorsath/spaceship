@@ -1,18 +1,10 @@
+require 'matrix'
 module Physics
-  class Position
+  class Position < Vector
 
-    def self.[](*args)
-      new(*args)
-    end
-
-    attr_accessor :x, :y, :z
-
-    def initialize(x, y, z)
-      @x, @y, @z = x, y, z
-    end
-
-    def values
-      [ x, y, z ]
+    def replace(vector)
+      Vector.Raise ErrDimensionMismatch if size != vector.size
+      @elements = vector.to_a
     end
 
   end

@@ -25,17 +25,11 @@ module Physics
       each do |body, position|
         gravity! body unless @gravity == 0.0
 
-        accelerations = body.accelerations.inject(Vector[0,0,0]) { |sum,(key,value)| sum + value }
+        accelerations = body.accelerations.inject(V[0,0,0]) { |sum,(key,value)| sum + value }
 
-        position.x += body.velocity[0,0] * time + 0.5 * accelerations[0] * time**2
-        position.y += body.velocity[1,0] * time + 0.5 * accelerations[1] * time**2
-        position.z += body.velocity[2,0] * time + 0.5 * accelerations[2] * time**2
+        position.replace(position + (body.velocity * time) + (0.5 * accelerations * time * time))
 
-        body.velocity =  M[
-          [accelerations[0] * time + body.velocity[0,0]],
-          [accelerations[1] * time + body.velocity[1,0]],
-          [accelerations[2] * time + body.velocity[2,0]],
-        ]
+        body.velocity = accelerations * time + body.velocity
 
       end
       #puts time

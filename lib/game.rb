@@ -8,7 +8,7 @@ require 'scene'
 
 $spaceship = Spaceship.new(:mass => 200)
 
-TURN_SPEED = 4.0.degrees
+TURN_SPEED = 10.0.degrees
 
 Game.define do
 

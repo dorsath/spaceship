@@ -29,7 +29,7 @@ class Game
       glPushMatrix
 
       #puts "Frame #{frame}: #{body} at #{Time.now - start_time}s is at #{position.values.inspect}"
-      glTranslate(*position.values) if position
+      glTranslate(*position.to_a) if position
       body.draw
 
       glPopMatrix

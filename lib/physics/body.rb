@@ -17,7 +17,7 @@ module Physics
     def default_values!
       self.mass            = 0.0
       self.rotation        = yaw_matrix(0) * roll_matrix(0) * pitch_matrix(0)
-      self.velocity        = M[ [0.0], [0.0], [0.0] ]
+      self.velocity        = V[ 0.0, 0.0, 0.0 ]
       self.accelerations   = {}
     end
 
@@ -33,9 +33,9 @@ module Physics
 
     def push(x, y, z)
       #p forces
-      adjustments = M[[x.to_f], [y.to_f], [z.to_f]]
-      a = rotation * V[1,1,1,0]
-      self.velocity += M[[a[0,0] /mass], [a[1,0] /mass], [a[2,0] /mass]]
+      adjustments = rotation * V[x.to_f, y.to_f, z.to_f, 0.0]
+      p adjustments
+      self.velocity += V[*adjustments.to_a.first(3)] / mass
       p velocity
     end
 
@@ -44,7 +44,7 @@ module Physics
         [  cos(r), 0, sin(r), 0 ],
         [       0, 1,      0, 0 ],
         [ -sin(r), 0, cos(r), 0 ],
-        [  0,      0,       0, 1 ]
+        [  0,      0,      0, 1 ]
       ]
     end
 
