@@ -16,6 +16,7 @@ Game.define do
 
   add $spaceship
   add_non_interactive Scene.new
+  camera.follow $spaceship, 5
 
   on GLUT_KEY_UP do
     $spaceship.accelerate

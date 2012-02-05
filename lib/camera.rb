@@ -16,11 +16,9 @@ class Camera
 
   def draw
     if @follow_object
-      glRotate(@follow_object.orientation[0,0].to_degrees,-1, 0, 0)
-      glRotate(@follow_object.orientation[1,0].to_degrees, 0,-1, 0)
-      glRotate(@follow_object.orientation[2,0].to_degrees, 0, 0,-1)
+      glMultMatrix(@follow_object.rotation.inverse)
 
-      glTranslate(0,0,-@distance)
+      #glTranslate(0,0,-@distance)
     else
       z = Math.cos(@angle_x.to_rad) * @distance * -1 + @offset_z * -1
       y = Math.sin(@angle_x.to_rad) * @distance * -1 + @offset_y * -1
