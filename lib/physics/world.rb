@@ -27,7 +27,7 @@ module Physics
 
         accelerations = body.accelerations.inject(V[0,0,0]) { |sum,(key,value)| sum + value }
 
-        position.replace(position + (body.velocity * time) + (0.5 * accelerations * time * time))
+        position.replace(position + (body.velocity * time) + (accelerations * time * time * 0.5))
 
         body.velocity = accelerations * time + body.velocity
 
