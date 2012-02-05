@@ -1,4 +1,6 @@
 source :rubygems
 
-gem 'ruby-opengl'
+gem 'mkrf'
+gem 'rake'
+gem 'ruby-opengl2'
 gem 'rspec'

@@ -12,13 +12,13 @@ GEM
     rspec-expectations (2.8.0)
       diff-lcs (~> 1.1.2)
     rspec-mocks (2.8.0)
-    ruby-opengl (0.60.1)
-      mkrf (>= 0.2.0)
-      rake
+    ruby-opengl2 (0.60.3)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  mkrf
+  rake
   rspec
-  ruby-opengl
+  ruby-opengl2

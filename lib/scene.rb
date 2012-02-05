@@ -1,5 +1,5 @@
-require 'lib/interface'
-require 'lib/models/circle'
+require 'interface'
+require 'models/circle'
 
 class Scene < Interface
   def draw

@@ -1,4 +1,4 @@
-require 'lib/models/cylinder'
+require 'models/cylinder'
 
 class Spaceship < Physics::Body
 
